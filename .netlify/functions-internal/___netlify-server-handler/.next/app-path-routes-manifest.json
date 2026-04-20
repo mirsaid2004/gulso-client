@@ -1,0 +1,14 @@
+{
+  "/[locale]/[...not-found]/page": "/[locale]/[...not-found]",
+  "/[locale]/catalog/page": "/[locale]/catalog",
+  "/[locale]/checkout/page": "/[locale]/checkout",
+  "/[locale]/login/page": "/[locale]/login",
+  "/[locale]/page": "/[locale]",
+  "/[locale]/product/[id]/page": "/[locale]/product/[id]",
+  "/[locale]/profile/page": "/[locale]/profile",
+  "/[locale]/shop/[id]/page": "/[locale]/shop/[id]",
+  "/[locale]/verification/page": "/[locale]/verification",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]"
+}

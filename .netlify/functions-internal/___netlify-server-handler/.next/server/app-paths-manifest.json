@@ -1,0 +1,14 @@
+{
+  "/[locale]/[...not-found]/page": "app/[locale]/[...not-found]/page.js",
+  "/[locale]/catalog/page": "app/[locale]/catalog/page.js",
+  "/[locale]/checkout/page": "app/[locale]/checkout/page.js",
+  "/[locale]/login/page": "app/[locale]/login/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/product/[id]/page": "app/[locale]/product/[id]/page.js",
+  "/[locale]/profile/page": "app/[locale]/profile/page.js",
+  "/[locale]/shop/[id]/page": "app/[locale]/shop/[id]/page.js",
+  "/[locale]/verification/page": "app/[locale]/verification/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
+}

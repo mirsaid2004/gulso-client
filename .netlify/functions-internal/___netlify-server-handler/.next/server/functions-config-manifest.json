@@ -1,0 +1,1 @@
+{"version":1,"functions":{"/_middleware":{"runtime":"nodejs","matchers":[{"regexp":"(?!.*)","originalSource":"/((?!api|_next|_vercel|.*\\..*).*)"},{"regexp":"(?!.*)","originalSource":"/"},{"regexp":"(?!.*)","originalSource":"/(uz|en|ru)/:path*"}]}}}
