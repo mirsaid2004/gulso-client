@@ -53,6 +53,7 @@ export const useWishlistStore = create<WishlistState>()(
     {
       name: "gulso-wishlist",
       storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
     }
   )
 );

@@ -1,4 +1,519 @@
 {
-    "title": "Gulso",
-    "description": "Gulso - this is an online flower shop."
+  "title": "Gulso",
+  "description": "Gulso - this is an online flower shop.",
+  "Auth": {
+    "login": {
+      "welcome": "Welcome",
+      "subtitle": "Enter your phone number to sign in",
+      "phoneNumberLabel": "Phone number",
+      "placeholder": "00 000 00 00",
+      "smsInfo": "A verification code will be sent to this number via SMS",
+      "sendCode": "Send code",
+      "termsPrefix": "By continuing, you agree to our",
+      "termsLink": "Terms of Use",
+      "termsSuffix": "."
+    },
+    "verification": {
+      "title": "Verification",
+      "subtitle": "Verification code sent to <bold>+998 {phone}</bold>",
+      "resendCode": "Resend code",
+      "verify": "Verify",
+      "noCode": "Didn't receive the code?",
+      "helpCenter": "Help Center",
+      "contactSupport": "contact",
+      "invalidCode": "Invalid code. Please try again."
+    },
+    "footer": {
+      "rights": "All rights reserved."
+    }
+  },
+  "Catalog": {
+    "breadcrumb": {
+      "home": "Home",
+      "catalog": "Product Catalog",
+      "flowers": "Flowers"
+    },
+    "title": "Product Catalog",
+    "description": "The best collection of flowers, gifts and sweets for you",
+    "sort": {
+      "label": "Sort:",
+      "options": {
+        "popular": "Popularity",
+        "asc": "Cheaper ↑",
+        "desc": "More expensive ↓",
+        "new": "New"
+      }
+    },
+    "results": "<bold>{count}</bold> products found",
+    "filters": {
+      "price": {
+        "title": "By Price",
+        "cheap": "Cheaper",
+        "expensive": "More expensive",
+        "range": "Price range",
+        "min": "Min",
+        "max": "Max",
+        "currency": "sum"
+      },
+      "popularity": {
+        "title": "Popularity",
+        "bestseller": "Bestsellers",
+        "new": "New arrivals",
+        "discount": "Discounts",
+        "inStock": "In Stock Only"
+      },
+      "rating": {
+        "title": "Rating",
+        "higher": "and higher"
+      },
+      "apply": "Apply Filter",
+      "reset": "Clear Filters",
+      "category": {
+        "title": "Category",
+        "all": "All",
+        "flowers": "Flowers",
+        "gifts": "Gifts",
+        "bakery": "Bakery"
+      },
+      "sort": {
+        "title": "Sort by",
+        "newest": "Newest first",
+        "cheapest": "Price: Low to High",
+        "expensive": "Price: High to Low",
+        "topRated": "Top Rated"
+      }
+    },
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next"
+    }
+  },
+  "Checkout": {
+    "wizard": {
+      "breadcrumb": {
+        "home": "Home",
+        "cart": "Cart & Checkout"
+      },
+      "steps": {
+        "cart": "Cart",
+        "payment": "Payment",
+        "receipt": "Finish"
+      }
+    },
+    "cart": {
+      "notification": {
+        "title": "Attention",
+        "message": "Items may be delivered from different sellers, but will be processed in one order."
+      },
+      "title": "Items in cart",
+      "seller": "Seller",
+      "empty": "Your cart is empty",
+      "deliveryToggle": "Delivery",
+      "form": {
+        "title": "Delivery information",
+        "name": "Recipient name",
+        "namePlaceholder": "Enter your name",
+        "phone": "Phone number",
+        "address": "Delivery address",
+        "addressPlaceholder": "Street, house, apartment number",
+        "date": "Date",
+        "time": "Time",
+        "comment": "Comment (optional)",
+        "commentPlaceholder": "Example: Door code 123, leave near entrance"
+      },
+      "paymentMethod": {
+        "title": "Payment method",
+        "cash": {
+          "title": "Cash on delivery",
+          "description": "Pay when the order reaches your door."
+        },
+        "card": {
+          "title": "Credit card",
+          "description": "Humo, Uzcard, Visa, Mastercard accepted."
+        },
+        "secure": "All payments are securely protected"
+      },
+      "summary": {
+        "title": "Summary",
+        "items": "Items ({count} pcs)",
+        "shipping": "Shipping",
+        "discount": "Discount promo",
+        "total": "Total payment",
+        "currency": "sum",
+        "buy": "Place order",
+        "pay": "Proceed to payment",
+        "secure": "Secure purchase",
+        "help": {
+          "title": "Need help?",
+          "message": "Contact us if you have any issues with payment."
+        }
+      }
+    },
+    "mapPicker": {
+      "title": "Pick Delivery Location",
+      "subtitle": "Click on the map to set your address",
+      "tapAnywhere": "Tap anywhere on the map",
+      "noLocation": "No location selected",
+      "cancel": "Cancel",
+      "confirm": "Confirm Location"
+    },
+    "payment": {
+      "title": "Card details",
+      "description": "Payment is processed through a secure portal",
+      "cardNumber": "Card number",
+      "cardholder": "Cardholder name",
+      "cardholderPlaceholder": "Enter in Latin letters",
+      "expiry": "Expiry date",
+      "cvv": "CVV / CVC",
+      "payButton": "Complete payment: {amount} sum"
+    },
+    "receipt": {
+      "title": "Order received!",
+      "orderNumber": "Order number: {number}",
+      "details": "Payment details",
+      "itemsPrice": "Items price",
+      "shipping": "Shipping",
+      "total": "Total amount",
+      "deliveryInfo": "Delivery information",
+      "address": "Address",
+      "time": "Time",
+      "paymentMethod": "Payment method",
+      "cashOnDelivery": "Cash (on delivery)",
+      "download": "Download receipt",
+      "backHome": "Back to home",
+      "info": "Our courier will contact you once the order is ready."
+    }
+  },
+  "Profile": {
+    "header": {
+      "title": "Aziz Rahimjonov",
+      "edit": "Edit"
+    },
+    "stats": {
+      "orders": "Orders",
+      "favorites": "Favorites",
+      "totalSpending": "Total spending"
+    },
+    "sidebar": {
+      "profile": "Profile",
+      "favorites": "Favorites",
+      "orders": "Orders",
+      "notifications": "Notifications",
+      "addresses": "Addresses",
+      "logout": "Logout",
+      "statusActive": "Active"
+    },
+    "sellerBanner": {
+      "title": "Become a Seller",
+      "description": "Sell your flowers and creativity to thousands of customers on our platform.",
+      "action": "Start selling"
+    },
+    "orders": {
+      "title": "Order History",
+      "viewAll": "View all",
+      "orderNo": "No.",
+      "statusKuryer": "In delivery",
+      "statusDelivered": "Delivered",
+      "empty": "No orders found",
+      "totalLabel": "Total",
+      "currency": "sum",
+      "filters": {
+        "all": "All Orders",
+        "active": "Active",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "statusLabels": {
+        "ACCEPTED": "Accepted",
+        "PREPARING": "Preparing",
+        "IN_DELIVERY": "In Delivery",
+        "COMPLETED": "Completed",
+        "CANCELLED": "Cancelled"
+      },
+      "detail": {
+        "title": "Order Details",
+        "orderedOn": "Ordered on {date}",
+        "orderStatus": "Order Status",
+        "delivery": "Delivery",
+        "items": "Order Items ({count})",
+        "quantity": "Quantity: {count}",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "total": "Total Amount"
+      }
+    },
+    "favorites": {
+      "title": "Favorites",
+      "viewAll": "View all",
+      "searchPlaceholder": "Search favorites...",
+      "noMatch": "No favorites match your search",
+      "empty": "No saved favorites yet"
+    },
+    "personalInfo": {
+      "title": "Personal Information",
+      "name": "Full Name",
+      "phone": "Phone Number",
+      "email": "Email Address",
+      "birthday": "Birthday",
+      "demoName": "Aziz Rahimjonov",
+      "demoPhone": "+998 90 123 45 67",
+      "demoEmail": "aziz.rahimjonov@example.com",
+      "demoBirthday": "June 15, 1995",
+      "saving": "Saving...",
+      "save": "Save Changes",
+      "changeAvatar": "Change Avatar",
+      "errors": {
+        "nameTooShort": "Name is too short",
+        "invalidEmail": "Invalid email",
+        "invalidPhone": "Invalid phone number"
+      }
+    },
+    "messages": {
+      "updateSuccess": "Information updated successfully",
+      "updateError": "An error occurred while updating information"
+    }
+  },
+  "ProfilePage": {
+    "signIn": {
+      "title": "Sign in to your account",
+      "description": "Access your orders, profile and more",
+      "button": "Sign in"
+    },
+    "addressesComingSoon": "Addresses section coming soon..."
+  },
+  "Layout": {
+    "header": {
+      "catalog": {
+        "title": "Catalog",
+        "categories": "Categories",
+        "popular": "Popular products",
+        "viewAll": "View all"
+      },
+      "login": "Login",
+      "wishlist": "Wishlist ({count})",
+      "cart": "Cart ({count})",
+      "search": {
+        "placeholder": "Search products...",
+        "results": "Results",
+        "resultsFor": "Results for \"{query}\"",
+        "popular": "Popular products",
+        "counts": "{count} items",
+        "noResults": "Nothing found",
+        "viewAll": "View all"
+      }
+    },
+    "footer": {
+      "tagline": "The most beautiful flowers and unforgettable gifts — we become the most amazing part of any of your celebrations.",
+      "buyers": {
+        "title": "For Buyers",
+        "delivery": "Delivery",
+        "payments": "Payment Methods",
+        "returns": "Return Policy",
+        "faq": "Question and Answer"
+      },
+      "sellers": {
+        "title": "For Sellers",
+        "openShop": "Open a shop",
+        "guide": "Seller guide",
+        "commissions": "Commissions",
+        "successStories": "Success stories"
+      },
+      "company": {
+        "title": "Company",
+        "about": "About us",
+        "partnership": "Partnership",
+        "careers": "Careers",
+        "contacts": "Contacts"
+      },
+      "address": "Tashkent, Amir Temur St., 12",
+      "rights": "© {year} Gulso. All rights reserved."
+    }
+  },
+  "Product": {
+    "status": {
+      "inStock": "In stock",
+      "outOfStock": "Out of stock",
+      "reliable": "Reliable"
+    },
+    "reviews": "({count} reviews)",
+    "seller": "Seller store",
+    "descriptionLabel": "Description and features",
+    "addToCart": "Add to cart",
+    "buyNow": "Add to cart / Buy",
+    "currency": "sum",
+    "badgeNew": "New",
+    "badgeTop": "Top",
+    "delivery": {
+      "title": "Delivery",
+      "today": "Today",
+      "express": "Express (within 1 hour)",
+      "free": "Free"
+    },
+    "pickup": {
+      "title": "Pickup from store",
+      "available": "Available today",
+      "store": "from {store}"
+    },
+    "trust": {
+      "fast": "Fast delivery",
+      "quality": "Quality assurance",
+      "payment": "Secure payment"
+    },
+    "similarProducts": "Similar products",
+    "viewAll": "View all",
+    "notFound": "Product not found",
+    "backToCatalog": "Back to catalog",
+    "reviewsSection": {
+      "title": "Customer reviews",
+      "writeReview": "Leave a review",
+      "submitted": {
+        "title": "Your review has been accepted!",
+        "subtitle": "Thank you for your feedback."
+      },
+      "form": {
+        "title": "Leave a review",
+        "rating": "Rating",
+        "content": "Your opinion",
+        "placeholder": "Write your opinion about the product...",
+        "submit": "Submit"
+      },
+      "empty": {
+        "title": "No reviews yet",
+        "subtitle": "Be the first to leave a review!"
+      },
+      "timeAgo": {
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "daysAgo": "{count} days ago",
+        "weeksAgo": "{count} weeks ago",
+        "monthsAgo": "{count} months ago",
+        "yearsAgo": "{count} years ago"
+      }
+    }
+  },
+  "ProductGrid": {
+    "title": "Featured products",
+    "showMore": "Show more"
+  },
+  "HeroBanner": {
+    "shopNow": "Shop now",
+    "learnMore": "Learn more",
+    "slides": [
+      {
+        "badge": "New Collection",
+        "title": "The most beautiful flowers and gifts",
+        "description": "The finest flowers, sweets and memorable gifts. Share joy with us."
+      },
+      {
+        "badge": "20% Off",
+        "title": "Special birthday gifts",
+        "description": "The best ideas and collections to make your loved ones' birthday extraordinary."
+      },
+      {
+        "badge": "Best Seller",
+        "title": "Delicious and beautiful pastries",
+        "description": "Create sweet moments with homemade pastries made with love."
+      }
+    ]
+  },
+  "Newsletter": {
+    "title": "Be the first to know about new discounts!",
+    "description": "Leave your email and get a 10% discount coupon for your first purchase.",
+    "placeholder": "Your email address",
+    "subscribe": "Subscribe"
+  },
+  "Shop": {
+    "tabs": {
+      "all": "All",
+      "flowers": "Flowers",
+      "gifts": "Gifts",
+      "bakery": "Bakery"
+    },
+    "notFound": "Shop not found",
+    "backToCatalog": "Back to catalog",
+    "sidebar": {
+      "info": "Info",
+      "workingHours": "Working hours",
+      "address": "Address",
+      "delivery": "Delivery",
+      "deliveryText": "60 minutes across Tashkent",
+      "registered": "Registered",
+      "verified": "Verified",
+      "subscribe": "Subscribe"
+    },
+    "promo": {
+      "title": "Today's offer!",
+      "description": "Get {discount}% off your first order!"
+    },
+    "products": {
+      "empty": "No products found",
+      "emptySubtitle": "No products in this category yet"
+    }
+  },
+  "Notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all read",
+    "newCount": "{count} new",
+    "noNotifications": "No notifications yet",
+    "noNotificationsHere": "No notifications here",
+    "viewAll": "View all notifications",
+    "reviewRequest": "Review Request",
+    "viewOrder": "View order",
+    "filters": {
+      "all": "All",
+      "orders": "Orders",
+      "reviews": "Reviews"
+    },
+    "groups": {
+      "new": "New",
+      "earlier": "Earlier",
+      "read": "Read"
+    },
+    "timeAgo": {
+      "justNow": "just now",
+      "minutesAgo": "{count} min ago",
+      "hoursAgo": "{count} hr ago",
+      "yesterday": "yesterday",
+      "daysAgo": "{count} days ago"
+    },
+    "reviewCard": {
+      "rateYour": "Rate your purchase",
+      "ratings": {
+        "poor": "Poor",
+        "fair": "Fair",
+        "good": "Good",
+        "veryGood": "Very Good",
+        "excellent": "Excellent"
+      },
+      "placeholder": "Share your experience (optional)...",
+      "submit": "Submit Review",
+      "submitted": {
+        "title": "Thanks for your review!",
+        "subtitle": "Your feedback helps other customers."
+      }
+    }
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for doesn't exist or has been moved. Return to home and start a new search.",
+    "backHome": "Back to home",
+    "viewCatalog": "View catalog",
+    "goBack": "Go back"
+  },
+  "CategoryCards": {
+    "categories": [
+      {
+        "title": "Flowers",
+        "description": "The finest flowers for any occasion"
+      },
+      {
+        "title": "Gifts",
+        "description": "Unforgettable gifts for your loved ones"
+      },
+      {
+        "title": "Pastries",
+        "description": "Homemade sweets"
+      }
+    ]
+  }
 }

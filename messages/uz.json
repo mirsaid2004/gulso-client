@@ -1,4 +1,519 @@
 {
-    "title": "Gulso",
-    "description": "Gulso - bu online flower shop."
+  "title": "Gulso",
+  "description": "Gulso - bu onlayn gul do'koni.",
+  "Auth": {
+    "login": {
+      "welcome": "Xush kelibsiz",
+      "subtitle": "Tizimga kirish uchun telefon raqamingizni kiriting",
+      "phoneNumberLabel": "Telefon raqami",
+      "placeholder": "00 000 00 00",
+      "smsInfo": "Tasdiqlash kodi ushbu raqamga SMS orqali yuboriladi",
+      "sendCode": "Kodni yuborish",
+      "termsPrefix": "Davom etish orqali siz bizning",
+      "termsLink": "Foydalanish shartlari",
+      "termsSuffix": "ga rozilik bildirasiz."
+    },
+    "verification": {
+      "title": "Tasdiqlash",
+      "subtitle": "Tasdiqlash kodi <bold>+998 {phone}</bold> raqamiga yuborildi",
+      "resendCode": "Kodni qayta yuborish",
+      "verify": "Tasdiqlash",
+      "noCode": "Kod kelmadimi?",
+      "helpCenter": "Yordam markazi",
+      "contactSupport": "bilan bog'laning",
+      "invalidCode": "Noto'g'ri kod. Qaytadan urinib ko'ring."
+    },
+    "footer": {
+      "rights": "Barcha huquqlar himoyalangan."
+    }
+  },
+  "Catalog": {
+    "breadcrumb": {
+      "home": "Bosh sahifa",
+      "catalog": "Mahsulotlar katalogi",
+      "flowers": "Gullar"
+    },
+    "title": "Mahsulotlar katalogi",
+    "description": "Eng sara gullar, sovg'alar va shirinliklar to'plami siz uchun",
+    "sort": {
+      "label": "Saralash:",
+      "options": {
+        "popular": "Ommabopligi",
+        "asc": "Arzonroq ↑",
+        "desc": "Qimmatroq ↓",
+        "new": "Yangi"
+      }
+    },
+    "results": "<bold>{count}</bold> ta mahsulot topildi",
+    "filters": {
+      "price": {
+        "title": "Narx bo'yicha",
+        "cheap": "Arzonroq",
+        "expensive": "Qimmatroq",
+        "range": "Narx oralig'i",
+        "min": "Min",
+        "max": "Max",
+        "currency": "so'm"
+      },
+      "popularity": {
+        "title": "Ommabopligi",
+        "bestseller": "Eng ko'p sotilgan",
+        "new": "Yangi kelganlar",
+        "discount": "Chegirmalar",
+        "inStock": "Faqat mavjudlar"
+      },
+      "rating": {
+        "title": "Reyting",
+        "higher": "va yuqori"
+      },
+      "apply": "Filtrni qo'llash",
+      "reset": "Filtrlarni tozalash",
+      "category": {
+        "title": "Kategoriya",
+        "all": "Barchasi",
+        "flowers": "Gullar",
+        "gifts": "Sovg'alar",
+        "bakery": "Pishiriqlar"
+      },
+      "sort": {
+        "title": "Saralash",
+        "newest": "Eng yangi",
+        "cheapest": "Narx: pastdan yuqoriga",
+        "expensive": "Narx: yuqoridan pastga",
+        "topRated": "Eng yaxshi baholi"
+      }
+    },
+    "pagination": {
+      "prev": "Oldingisi",
+      "next": "Keyingisi"
+    }
+  },
+  "Checkout": {
+    "wizard": {
+      "breadcrumb": {
+        "home": "Asosiy",
+        "cart": "Savat va rasmiylashtirish"
+      },
+      "steps": {
+        "cart": "Savat",
+        "payment": "To'lov",
+        "receipt": "Yakun"
+      }
+    },
+    "cart": {
+      "notification": {
+        "title": "Diqqat",
+        "message": "Tovarlar turli sotuvchilardan yetkazilishi mumkin, lekin bitta buyurtmada rasmiylashtiriladi."
+      },
+      "title": "Savatdagi mahsulotlar",
+      "seller": "Sotuvchi",
+      "form": {
+        "title": "Yetkazib berish ma'lumotlari",
+        "name": "Qabul qiluvchi ismi",
+        "namePlaceholder": "Ismingizni kiriting",
+        "phone": "Telefon raqami",
+        "address": "Yetkazib berish manzili",
+        "addressPlaceholder": "Ko'cha, uy, xonadon raqami",
+        "date": "Sana",
+        "time": "Vaqti",
+        "comment": "Izoh (ixtiyoriy)",
+        "commentPlaceholder": "Masalan: Uy kodi 123, pod'yezd oldiga qo'yib keting"
+      },
+      "paymentMethod": {
+        "title": "To'lov usuli",
+        "cash": {
+          "title": "Naqd pul orqali",
+          "description": "Buyurtma eshigingizga yetib borganda to'laysiz."
+        },
+        "card": {
+          "title": "Plastik karta orqali",
+          "description": "Humo, Uzcard, Visa, Mastercard qabul qilinadi."
+        },
+        "secure": "Barcha to'lovlar xavfsiz himoyalangan"
+      },
+      "summary": {
+        "title": "Xulosa",
+        "items": "Mahsulotlar ({count} ta)",
+        "shipping": "Yetkazib berish",
+        "discount": "Chegirma promo",
+        "total": "Jami to'lov",
+        "currency": "so'm",
+        "buy": "Buyurtma berish",
+        "pay": "To'lovga o'tish",
+        "secure": "Xavfsiz xarid",
+        "help": {
+          "title": "Yordam kerakmi?",
+          "message": "To'lov bilan bog'liq muammo bo'lsa bizga aloqaga chiqing."
+        }
+      },
+      "empty": "Savatingiz bo'sh",
+      "deliveryToggle": "Yetkazib berish"
+    },
+    "payment": {
+      "title": "Karta ma'lumotlari",
+      "description": "To'lov xavfsiz portal orqali yechiladi",
+      "cardNumber": "Karta raqami",
+      "cardholder": "Karta egasining ismi",
+      "cardholderPlaceholder": "Lotin alifbosida kiriting",
+      "expiry": "Amal qilish muddati",
+      "cvv": "CVV / CVC",
+      "payButton": "To'lovni amalga oshirish: {amount} so'm"
+    },
+    "receipt": {
+      "title": "Buyurtma qabul qilindi!",
+      "orderNumber": "Buyurtma raqami: {number}",
+      "details": "To'lov tafsilotlari",
+      "itemsPrice": "Mahsulotlar narxi",
+      "shipping": "Yetkazib berish",
+      "total": "Jami summa",
+      "deliveryInfo": "Yetkazib berish ma'lumotlari",
+      "address": "Manzil",
+      "time": "Vaqt",
+      "paymentMethod": "To'lov usuli",
+      "cashOnDelivery": "Naqd pul bilan (Qabul qilganda)",
+      "download": "Chekni yuklab olish",
+      "backHome": "Asosiy sahifaga qaytish",
+      "info": "Kuryerimiz buyurtmani tayyorlagach siz bilan bog'lanadi."
+    },
+    "mapPicker": {
+      "title": "Yetkazib berish joyini tanlang",
+      "subtitle": "Manzilingizni belgilash uchun xaritaga bosing",
+      "tapAnywhere": "Xaritaning istalgan joyiga bosing",
+      "noLocation": "Manzil tanlanmagan",
+      "cancel": "Bekor qilish",
+      "confirm": "Joyni tasdiqlash"
+    }
+  },
+  "Profile": {
+    "header": {
+      "title": "Aziz Rahimjonov",
+      "edit": "Tahrirlash"
+    },
+    "stats": {
+      "orders": "Buyurtmalar",
+      "favorites": "Saralanganlar",
+      "totalSpending": "Jami xarid"
+    },
+    "sidebar": {
+      "profile": "Profil",
+      "favorites": "Saralanganlar",
+      "orders": "Buyurtmalar",
+      "addresses": "Manzillar",
+      "logout": "Chiqish",
+      "statusActive": "Faol",
+      "notifications": "Bildirishnomalar"
+    },
+    "sellerBanner": {
+      "title": "Sotuvchi bo'lish",
+      "description": "O'z gullaringiz va ijodingizni bizning platformada minglab mijozlarga soting.",
+      "action": "Sotishni boshlash"
+    },
+    "orders": {
+      "title": "Buyurtmalar tarixi",
+      "viewAll": "Hammasini ko'rish",
+      "orderNo": "№",
+      "statusKuryer": "Kuryerda",
+      "statusDelivered": "Yetkazildi",
+      "empty": "Buyurtmalar topilmadi",
+      "totalLabel": "Jami",
+      "currency": "so'm",
+      "filters": {
+        "all": "Barcha buyurtmalar",
+        "active": "Faol",
+        "completed": "Bajarilgan",
+        "cancelled": "Bekor qilingan"
+      },
+      "statusLabels": {
+        "ACCEPTED": "Qabul qilindi",
+        "PREPARING": "Tayyorlanmoqda",
+        "IN_DELIVERY": "Yetkazilmoqda",
+        "COMPLETED": "Bajarildi",
+        "CANCELLED": "Bekor qilindi"
+      },
+      "detail": {
+        "title": "Buyurtma tafsilotlari",
+        "orderedOn": "{date} da berilgan",
+        "orderStatus": "Buyurtma holati",
+        "delivery": "Yetkazib berish",
+        "items": "Buyurtma mahsulotlari ({count} ta)",
+        "quantity": "Miqdori: {count} ta",
+        "subtotal": "Oraliq jami",
+        "shipping": "Yetkazib berish",
+        "total": "Jami summa"
+      }
+    },
+    "favorites": {
+      "title": "Saralanganlar",
+      "viewAll": "Barchasini ko'rish",
+      "searchPlaceholder": "Saqlanganlarni qidirish...",
+      "noMatch": "Saqlanganlar orasida hech narsa topilmadi",
+      "empty": "Hali saqlangan mahsulotlar yo'q"
+    },
+    "personalInfo": {
+      "title": "Shaxsiy ma'lumotlar",
+      "name": "Ism va familiya",
+      "phone": "Telefon raqam",
+      "email": "Elektron pochta",
+      "birthday": "Tug'ilgan kun",
+      "demoName": "Aziz Rahimjonov",
+      "demoPhone": "+998 90 123 45 67",
+      "demoEmail": "aziz.rahimjonov@example.com",
+      "demoBirthday": "15 Iyun, 1995",
+      "saving": "Saqlanmoqda...",
+      "save": "Saqlash",
+      "changeAvatar": "Rasmni o'zgartirish",
+      "errors": {
+        "nameTooShort": "Ism juda qisqa",
+        "invalidEmail": "Elektron pochta noto'g'ri",
+        "invalidPhone": "Telefon raqam noto'g'ri"
+      }
+    },
+    "messages": {
+      "updateSuccess": "Ma'lumotlar muvaffaqiyatli yangilandi",
+      "updateError": "Ma'lumotlarni yangilashda xatolik yuz berdi"
+    }
+  },
+  "ProfilePage": {
+    "signIn": {
+      "title": "Hisobingizga kiring",
+      "description": "Buyurtmalaringiz, profilingiz va boshqa narsalarga kiring",
+      "button": "Kirish"
+    },
+    "addressesComingSoon": "Manzillar bo'limi tez orada..."
+  },
+  "Layout": {
+    "header": {
+      "catalog": {
+        "title": "Katalog",
+        "categories": "Kategoriyalar",
+        "popular": "Ommabop mahsulotlar",
+        "viewAll": "Barchasini ko'rish"
+      },
+      "login": "Kirish",
+      "wishlist": "Saralanganlar ({count})",
+      "cart": "Savat ({count})",
+      "search": {
+        "placeholder": "Mahsulotlarni qidirish...",
+        "results": "Natijalar",
+        "resultsFor": "Natijalar: \"{query}\"",
+        "popular": "Ommabop mahsulotlar",
+        "counts": "{count} ta",
+        "noResults": "Hech narsa topilmadi",
+        "viewAll": "Barchasini ko'rish"
+      }
+    },
+    "footer": {
+      "tagline": "Eng go'zal gullar va unutilmas sovg'alar — har qanday bayramingizning eng ajoyib qismiga aylanamiz.",
+      "buyers": {
+        "title": "Xaridorlar uchun",
+        "delivery": "Yetkazib berish",
+        "payments": "To'lov usullari",
+        "returns": "Qaytarish siyosati",
+        "faq": "Savol va javoblar"
+      },
+      "sellers": {
+        "title": "Sotuvchilar uchun",
+        "openShop": "Do'kon ochish",
+        "guide": "Sotuvchi qo'llanmasi",
+        "commissions": "Komissiyalar",
+        "successStories": "Muvaffaqiyat tarixi"
+      },
+      "company": {
+        "title": "Kompaniya",
+        "about": "Biz haqimizda",
+        "partnership": "Hamkorlik",
+        "careers": "Vakansiyalar",
+        "contacts": "Kontaktlar"
+      },
+      "address": "Toshkent sh., Amir Temur ko'chasi, 12",
+      "rights": "© {year} Gulso. Barcha huquqlar himoyalangan."
+    }
+  },
+  "Product": {
+    "status": {
+      "inStock": "Omborda bor",
+      "reliable": "Ishonchli",
+      "outOfStock": "Tugagan"
+    },
+    "reviews": "({count} ta sharh)",
+    "seller": "Sotuvchi do'kon",
+    "descriptionLabel": "Tavsif va xususiyatlar",
+    "addToCart": "Savatga qo'shish",
+    "buyNow": "Savatga qo'shish / Xarid qilish",
+    "delivery": {
+      "title": "Yetkazib berish",
+      "today": "Bugun",
+      "express": "Express (1 soat ichida)",
+      "free": "Bepul"
+    },
+    "pickup": {
+      "title": "Do'kondan olib ketish",
+      "available": "Bugun mavjud",
+      "store": "{store} do'konidan"
+    },
+    "trust": {
+      "fast": "Tezkor yetkazish",
+      "quality": "Sifat kafolati",
+      "payment": "Xavfsiz to'lov"
+    },
+    "similarProducts": "O'xshash mahsulotlar",
+    "viewAll": "Barchasi",
+    "currency": "so'm",
+    "badgeNew": "Yangi",
+    "badgeTop": "Top",
+    "notFound": "Mahsulot topilmadi",
+    "backToCatalog": "Katalogga qaytish",
+    "reviewsSection": {
+      "title": "Mijozlar fikrlari",
+      "writeReview": "Sharh qoldirish",
+      "submitted": {
+        "title": "Sharhingiz qabul qilindi!",
+        "subtitle": "Fikringiz uchun rahmat."
+      },
+      "form": {
+        "title": "Sharh qoldirish",
+        "rating": "Baho",
+        "content": "Fikringiz",
+        "placeholder": "Mahsulot haqida fikringizni yozing...",
+        "submit": "Yuborish"
+      },
+      "empty": {
+        "title": "Hali sharhlar yo'q",
+        "subtitle": "Birinchi bo'lib fikr qoldiring!"
+      },
+      "timeAgo": {
+        "today": "Bugun",
+        "yesterday": "Kecha",
+        "daysAgo": "{count} kun avval",
+        "weeksAgo": "{count} hafta avval",
+        "monthsAgo": "{count} oy avval",
+        "yearsAgo": "{count} yil avval"
+      }
+    }
+  },
+  "ProductGrid": {
+    "title": "Tavsiya etilgan mahsulotlar",
+    "showMore": "Ko'proq ko'rish"
+  },
+  "HeroBanner": {
+    "shopNow": "Hozir xarid qilish",
+    "learnMore": "Batafsil",
+    "slides": [
+      {
+        "badge": "Yangi Kolleksiya",
+        "title": "Eng go'zal gullar va sovg'alar",
+        "description": "Eng sara gullar, shirinliklar va unutilmas sovg'alar to'plami. Biz bilan quvonch ulashing."
+      },
+      {
+        "badge": "Chegirma 20%",
+        "title": "Tug'ilgan kun uchun maxsus sovg'alar",
+        "description": "Yaqinlaringizning tug'ilgan kunini o'zgacha nishonlash uchun eng yaxshi g'oyalar va to'plamlar."
+      },
+      {
+        "badge": "Ko'p Sotilgan",
+        "title": "Mazali va chiroyli shirinliklar",
+        "description": "Uyda tayyorlangan mehrli pishiriqlar orqali shirin onlarni yarating."
+      }
+    ]
+  },
+  "Newsletter": {
+    "title": "Yangi chegirmalar haqida birinchilardan bo'lib biling!",
+    "description": "Elektron pochtangizni qoldiring va birinchi xaridingiz uchun 10% chegirma kuponiga ega bo'ling.",
+    "placeholder": "Email manzilingiz",
+    "subscribe": "A'zo bo'lish"
+  },
+  "Shop": {
+    "tabs": {
+      "all": "Barchasi",
+      "flowers": "Gullar",
+      "gifts": "Sovg'alar",
+      "bakery": "Pishiriqlar"
+    },
+    "notFound": "Do'kon topilmadi",
+    "backToCatalog": "Katalogga qaytish",
+    "sidebar": {
+      "info": "Ma'lumotlar",
+      "workingHours": "Ish vaqti",
+      "address": "Manzil",
+      "delivery": "Yetkazib berish",
+      "deliveryText": "Toshkent bo'ylab 60 daqiqada",
+      "registered": "Ro'yxatdan o'tgan",
+      "verified": "Tasdiqlangan",
+      "subscribe": "Obuna bo'lish"
+    },
+    "promo": {
+      "title": "Bugungi taklif! 🔥",
+      "description": "Birinchi buyurtmangiz uchun {discount}% chegirma oling!"
+    },
+    "products": {
+      "empty": "Mahsulotlar topilmadi",
+      "emptySubtitle": "Bu kategoriyada hozircha mahsulot yo'q"
+    }
+  },
+  "Notifications": {
+    "title": "Bildirishnomalar",
+    "markAllRead": "Barchasini o'qilgan deb belgilash",
+    "newCount": "{count} ta yangi",
+    "noNotifications": "Hali bildirishnomalar yo'q",
+    "noNotificationsHere": "Bu yerda bildirishnomalar yo'q",
+    "viewAll": "Barchasini ko'rish",
+    "reviewRequest": "Sharh so'rovi",
+    "viewOrder": "Buyurtmani ko'rish",
+    "filters": {
+      "all": "Barchasi",
+      "orders": "Buyurtmalar",
+      "reviews": "Sharhlar"
+    },
+    "groups": {
+      "new": "Yangi",
+      "earlier": "Oldingi",
+      "read": "O'qilgan"
+    },
+    "timeAgo": {
+      "justNow": "hozir",
+      "minutesAgo": "{count} daqiqa oldin",
+      "hoursAgo": "{count} soat oldin",
+      "yesterday": "kecha",
+      "daysAgo": "{count} kun oldin"
+    },
+    "reviewCard": {
+      "rateYour": "Xaridingizni baholang",
+      "ratings": {
+        "poor": "Yomon",
+        "fair": "Qoniqarli",
+        "good": "Yaxshi",
+        "veryGood": "Juda yaxshi",
+        "excellent": "A'lo"
+      },
+      "placeholder": "Tajribangizni ulashing (ixtiyoriy)...",
+      "submit": "Sharh yuborish",
+      "submitted": {
+        "title": "Sharhingiz uchun rahmat!",
+        "subtitle": "Sizning fikringiz boshqa mijozlarga yordam beradi."
+      }
+    }
+  },
+  "NotFound": {
+    "title": "Sahifa topilmadi",
+    "description": "Siz qidirayotgan sahifa yo'q yoki boshqa manzilga ko'chirilgan. Bosh sahifaga qaytib, yangi qidiruv boshlang.",
+    "backHome": "Bosh sahifaga qaytish",
+    "viewCatalog": "Katalogni ko'rish",
+    "goBack": "Oldingi sahifaga qaytish"
+  },
+  "CategoryCards": {
+    "categories": [
+      {
+        "title": "Gullar",
+        "description": "Har qanday ayyom uchun eng sara gullar"
+      },
+      {
+        "title": "Sovg'alar",
+        "description": "Yaqinlaringiz uchun unutilmas sovg'alar"
+      },
+      {
+        "title": "Pishiriqlar",
+        "description": "Uyda tayyorlangan shirinliklar"
+      }
+    ]
+  }
 }

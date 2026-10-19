@@ -26,6 +26,8 @@ export const products = [
     title: "Atirgullar \"Sehr\" guldastasi",
     price: 390000,
     originalPrice: 450000,
+    isNew: true,
+    isTopSeller: true,
     image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD5b4Yg_lk66dJt3NgunPmDXrpwXtdDW8iVyxCZogO4DtRAAn3FpU7sH5UDe8pCxf5zjVNZIvOY3BMlAas2kf4lNrQflvgNu4xYdQtzJ7rNYMMi72kTwWenmMzrkuNp51B4Ng_Gi1wnyAnwNHPVpMdE26fxl93B6v8Udo5lli3l7YV1BdzSEXR5Y3NJrFTV9sz2z0vaQyN2MPJ3WBzWpYskpMoAwyDZq8lIBZVGjoB_y7732XCzE1zW5YVr7-6ted1_WBqCUFN9xgLV"
   },
   {

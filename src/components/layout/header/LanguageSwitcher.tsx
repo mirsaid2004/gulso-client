@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 
 type Locale = (typeof routing.locales)[number];
 

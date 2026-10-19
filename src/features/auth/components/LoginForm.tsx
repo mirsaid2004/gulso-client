@@ -4,22 +4,38 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Icon } from '@iconify/react';
+import { Image } from '@/components/ui/image';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+
+import { useSendOtp } from '../api/send-otp';
 
 interface LoginFormProps {
   onSubmit: (phone: string) => void;
 }
 
 export function LoginForm({ onSubmit }: LoginFormProps) {
+  const t = useTranslations('Auth.login');
   const [phone, setPhone] = useState('');
   const [isValidPhone, setIsValidPhone] = useState(false);
+  
+  const sendOtpMutation = useSendOtp({
+    mutationConfig: {
+      onSuccess: () => {
+        onSubmit(phone);
+      }
+    }
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (phone.length >= 9) {
-      onSubmit(phone);
+      const rawPhone = `+998${phone.replace(/\s/g, '')}`;
+      sendOtpMutation.mutate({ phone: rawPhone });
     }
   };
+  
+  const isLoading = sendOtpMutation.isPending;
 
   const hanleFormatPhone = (value: string) => {
     const digits = value.replace(/\D/g, '');
@@ -52,17 +68,15 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
     >
       {/* Brand Section */}
       <div className="flex flex-col items-center text-center gap-3 mt-4 sm:mt-0">
-        <div className="w-20 h-20 shrink-0 rounded-full bg-primary/10 flex items-center justify-center mb-2 shadow-inner text-primary">
-          <Icon
-            icon="material-symbols:local-florist-rounded"
-            className="w-10 h-10"
-          />
+        <div className="flex items-center gap-2 mb-2">
+          <Image src="/images/logo.svg" alt="Gulso" width={48} height={48} />
+          <span className="text-3xl font-black text-primary tracking-tighter">Gulso</span>
         </div>
         <h1 className="text-3xl font-black text-slate-900 tracking-tight">
-          Xush kelibsiz
+          {t('welcome')}
         </h1>
         <p className="text-slate-500 font-medium text-sm">
-          Tizimga kirish uchun telefon raqamingizni kiriting
+          {t('subtitle')}
         </p>
       </div>
 
@@ -70,7 +84,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
         {/* Phone Number */}
         <div className="flex flex-col gap-2 w-full">
           <label className="text-sm font-bold text-slate-700 px-1">
-            Telefon raqami
+            {t('phoneNumberLabel')}
           </label>
           <div className="relative flex items-center group w-full">
             <div className="absolute left-0 top-0 bottom-0 w-20 flex items-center justify-center bg-slate-50 border-r border-slate-200 rounded-l-xl z-10 transition-colors group-focus-within:border-primary/50 group-focus-within:bg-primary/5">
@@ -79,7 +93,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
             <Input
               className="w-full pl-24 pr-4 h-14 rounded-xl border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary outline-none transition-all font-extrabold text-lg shadow-sm tracking-widest text-slate-900"
-              placeholder="00 000 00 00"
+              placeholder={t('placeholder')}
               type="tel"
               value={phone}
               onChange={(e) => {
@@ -91,32 +105,38 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             />
           </div>
           <p className="text-xs font-bold text-slate-400 px-1 mt-1 text-center">
-            Tasdiqlash kodi ushbu raqamga SMS orqali yuboriladi
+            {t('smsInfo')}
           </p>
         </div>
 
         {/* Action Button */}
         <Button
           type="submit"
-          disabled={!isValidPhone}
+          disabled={!isValidPhone || isLoading}
           className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-14 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 text-base mt-2"
         >
-          <span>Kodni yuborish</span>
-          <Icon
-            icon="material-symbols:arrow-forward-rounded"
-            className="w-5 h-5"
-          />
+          {isLoading ? (
+            <Icon icon="line-md:loading-twotone-loop" className="w-6 h-6" />
+          ) : (
+            <>
+              <span>{t('sendCode')}</span>
+              <Icon
+                icon="material-symbols:arrow-forward-rounded"
+                className="w-5 h-5"
+              />
+            </>
+          )}
         </Button>
       </form>
 
       {/* Footer Links */}
       <div className="text-center mt-2 w-full">
         <p className="text-xs font-semibold text-slate-400">
-          Davom etish orqali siz bizning <br />
+          {t('termsPrefix')} <br />
           <a className="text-primary hover:underline font-bold" href="#">
-            Foydalanish shartlari
+            {t('termsLink')}
           </a>
-          ga rozilik bildirasiz.
+          {t('termsSuffix')}
         </p>
       </div>
     </div>

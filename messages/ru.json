@@ -1,4 +1,519 @@
 {
-    "title": "Gulso",
-    "description": "Gulso - это интернет-магазин цветов."
+  "title": "Gulso",
+  "description": "Gulso - это онлайн-магазин цветов.",
+  "Auth": {
+    "login": {
+      "welcome": "Добро пожаловать",
+      "subtitle": "Введите свой номер телефона для входа",
+      "phoneNumberLabel": "Номер телефона",
+      "placeholder": "00 000 00 00",
+      "smsInfo": "Код подтверждения будет отправлен на этот номер по SMS",
+      "sendCode": "Отправить код",
+      "termsPrefix": "Продолжая, вы соглашаетесь с нашими",
+      "termsLink": "Условиями использования",
+      "termsSuffix": "."
+    },
+    "verification": {
+      "title": "Подтверждение",
+      "subtitle": "Код подтверждения отправлен на номер <bold>+998 {phone}</bold>",
+      "resendCode": "Отправить код еще раз",
+      "verify": "Подтвердить",
+      "noCode": "Не получили код?",
+      "helpCenter": "Центр поддержки",
+      "contactSupport": "свяжитесь",
+      "invalidCode": "Неверный код. Попробуйте ещё раз."
+    },
+    "footer": {
+      "rights": "Все права защищены."
+    }
+  },
+  "Catalog": {
+    "breadcrumb": {
+      "home": "Главная",
+      "catalog": "Каталог товаров",
+      "flowers": "Цветы"
+    },
+    "title": "Каталог товаров",
+    "description": "Лучшая коллекция цветов, подарков и сладостей для вас",
+    "sort": {
+      "label": "Сортировка:",
+      "options": {
+        "popular": "Популярность",
+        "asc": "Дешевле ↑",
+        "desc": "Дороже ↓",
+        "new": "Новинки"
+      }
+    },
+    "results": "Найдено <bold>{count}</bold> товаров",
+    "filters": {
+      "price": {
+        "title": "По цене",
+        "cheap": "Дешевле",
+        "expensive": "Дороже",
+        "range": "Диапазон цен",
+        "min": "Мин",
+        "max": "Макс",
+        "currency": "сум"
+      },
+      "popularity": {
+        "title": "Популярность",
+        "bestseller": "Хиты продаж",
+        "new": "Новинки",
+        "discount": "Скидки",
+        "inStock": "Только в наличии"
+      },
+      "rating": {
+        "title": "Рейтинг",
+        "higher": "и выше"
+      },
+      "apply": "Применить фильтр",
+      "reset": "Очистить фильтры",
+      "category": {
+        "title": "Категория",
+        "all": "Все",
+        "flowers": "Цветы",
+        "gifts": "Подарки",
+        "bakery": "Выпечка"
+      },
+      "sort": {
+        "title": "Сортировка",
+        "newest": "Сначала новые",
+        "cheapest": "Цена: по возрастанию",
+        "expensive": "Цена: по убыванию",
+        "topRated": "Лучшие"
+      }
+    },
+    "pagination": {
+      "prev": "Назад",
+      "next": "Вперед"
+    }
+  },
+  "Checkout": {
+    "wizard": {
+      "breadcrumb": {
+        "home": "Главная",
+        "cart": "Корзина и оформление"
+      },
+      "steps": {
+        "cart": "Корзина",
+        "payment": "Оплата",
+        "receipt": "Завершение"
+      }
+    },
+    "cart": {
+      "notification": {
+        "title": "Внимание",
+        "message": "Товары могут быть доставлены от разных продавцов, но будут оформлены в одном заказе."
+      },
+      "title": "Товары в корзине",
+      "seller": "Продавец",
+      "form": {
+        "title": "Информация о доставке",
+        "name": "Имя получателя",
+        "namePlaceholder": "Введите ваше имя",
+        "phone": "Номер телефона",
+        "address": "Адрес доставки",
+        "addressPlaceholder": "Улица, дом, номер квартиры",
+        "date": "Дата",
+        "time": "Время",
+        "comment": "Комментарий (необязательно)",
+        "commentPlaceholder": "Например: Код двери 123, оставьте у входа"
+      },
+      "paymentMethod": {
+        "title": "Способ оплаты",
+        "cash": {
+          "title": "Наличными при получении",
+          "description": "Оплатите, когда заказ будет у вашей двери."
+        },
+        "card": {
+          "title": "Пластиковая карта",
+          "description": "Принимаются Humo, Uzcard, Visa, Mastercard."
+        },
+        "secure": "Все платежи надежно защищены"
+      },
+      "summary": {
+        "title": "Итого",
+        "items": "Товары ({count} шт)",
+        "shipping": "Доставка",
+        "discount": "Дисконт промо",
+        "total": "К оплате",
+        "currency": "сум",
+        "buy": "Оформить заказ",
+        "pay": "Перейти к оплате",
+        "secure": "Безопасная покупка",
+        "help": {
+          "title": "Нужна помощь?",
+          "message": "Свяжитесь с нами, если у вас возникли проблемы с оплатой."
+        }
+      },
+      "empty": "Ваша корзина пуста",
+      "deliveryToggle": "Доставка"
+    },
+    "payment": {
+      "title": "Данные карты",
+      "description": "Оплата производится через защищенный портал",
+      "cardNumber": "Номер карты",
+      "cardholder": "Имя владельца карты",
+      "cardholderPlaceholder": "Введите латинскими буквами",
+      "expiry": "Срок действия",
+      "cvv": "CVV / CVC",
+      "payButton": "Оплатить: {amount} сум"
+    },
+    "receipt": {
+      "title": "Заказ принят!",
+      "orderNumber": "Номер заказа: {number}",
+      "details": "Детали платежа",
+      "itemsPrice": "Стоимость товаров",
+      "shipping": "Доставка",
+      "total": "Общая сумма",
+      "deliveryInfo": "Информация о доставке",
+      "address": "Адрес",
+      "time": "Время",
+      "paymentMethod": "Способ оплаты",
+      "cashOnDelivery": "Наличными (при получении)",
+      "download": "Скачать чек",
+      "backHome": "Вернуться на главную",
+      "info": "Наш курьер свяжется с вами, как только заказ будет готов."
+    },
+    "mapPicker": {
+      "title": "Выберите место доставки",
+      "subtitle": "Нажмите на карту, чтобы указать адрес",
+      "tapAnywhere": "Нажмите в любом месте карты",
+      "noLocation": "Местоположение не выбрано",
+      "cancel": "Отмена",
+      "confirm": "Подтвердить местоположение"
+    }
+  },
+  "Profile": {
+    "header": {
+      "title": "Азиз Рахимжонов",
+      "edit": "Редактировать"
+    },
+    "stats": {
+      "orders": "Заказы",
+      "favorites": "Избранное",
+      "totalSpending": "Общие траты"
+    },
+    "sidebar": {
+      "profile": "Профиль",
+      "favorites": "Избранное",
+      "orders": "Заказы",
+      "addresses": "Адреса",
+      "logout": "Выйти",
+      "statusActive": "Активен",
+      "notifications": "Уведомления"
+    },
+    "sellerBanner": {
+      "title": "Стать продавцом",
+      "description": "Продавайте свои цветы и творчество тысячам клиентов на нашей платформе.",
+      "action": "Начать продавать"
+    },
+    "orders": {
+      "title": "История заказов",
+      "viewAll": "Посмотреть все",
+      "orderNo": "№",
+      "statusKuryer": "У курьера",
+      "statusDelivered": "Доставлено",
+      "empty": "Заказы не найдены",
+      "totalLabel": "Итого",
+      "currency": "сум",
+      "filters": {
+        "all": "Все заказы",
+        "active": "Активные",
+        "completed": "Выполненные",
+        "cancelled": "Отменённые"
+      },
+      "statusLabels": {
+        "ACCEPTED": "Принят",
+        "PREPARING": "Готовится",
+        "IN_DELIVERY": "В доставке",
+        "COMPLETED": "Выполнен",
+        "CANCELLED": "Отменён"
+      },
+      "detail": {
+        "title": "Детали заказа",
+        "orderedOn": "Заказано {date}",
+        "orderStatus": "Статус заказа",
+        "delivery": "Доставка",
+        "items": "Товары в заказе ({count})",
+        "quantity": "Количество: {count}",
+        "subtotal": "Подитог",
+        "shipping": "Доставка",
+        "total": "Итоговая сумма"
+      }
+    },
+    "favorites": {
+      "title": "Избранное",
+      "viewAll": "Посмотреть все",
+      "searchPlaceholder": "Поиск в избранном...",
+      "noMatch": "Ничего не найдено в избранном",
+      "empty": "Избранных товаров ещё нет"
+    },
+    "personalInfo": {
+      "title": "Личная информация",
+      "name": "Имя и фамилия",
+      "phone": "Номер телефона",
+      "email": "Электронная почта",
+      "birthday": "День рождения",
+      "demoName": "Азиз Рахимжонов",
+      "demoPhone": "+998 90 123 45 67",
+      "demoEmail": "aziz.rahimjonov@example.com",
+      "demoBirthday": "15 июня, 1995",
+      "saving": "Сохранение...",
+      "save": "Сохранить изменения",
+      "changeAvatar": "Изменить аватар",
+      "errors": {
+        "nameTooShort": "Имя слишком короткое",
+        "invalidEmail": "Неверный email",
+        "invalidPhone": "Неверный номер телефона"
+      }
+    },
+    "messages": {
+      "updateSuccess": "Информация успешно обновлена",
+      "updateError": "Произошла ошибка при обновлении информации"
+    }
+  },
+  "ProfilePage": {
+    "signIn": {
+      "title": "Войдите в аккаунт",
+      "description": "Получите доступ к заказам, профилю и многому другому",
+      "button": "Войти"
+    },
+    "addressesComingSoon": "Раздел адресов скоро появится..."
+  },
+  "Layout": {
+    "header": {
+      "catalog": {
+        "title": "Каталог",
+        "categories": "Категории",
+        "popular": "Популярные товары",
+        "viewAll": "Посмотреть все"
+      },
+      "login": "Войти",
+      "wishlist": "Избранное ({count})",
+      "cart": "Корзина ({count})",
+      "search": {
+        "placeholder": "Поиск товаров...",
+        "results": "Результаты",
+        "resultsFor": "Результаты по запросу \"{query}\"",
+        "popular": "Популярные товары",
+        "counts": "{count} шт.",
+        "noResults": "Ничего не найдено",
+        "viewAll": "Посмотреть все"
+      }
+    },
+    "footer": {
+      "tagline": "Самые красивые цветы и незабываемые подарки — мы станем самой удивительной частью любого вашего праздника.",
+      "buyers": {
+        "title": "Для покупателей",
+        "delivery": "Доставка",
+        "payments": "Способы оплаты",
+        "returns": "Политика возврата",
+        "faq": "Вопросы и ответы"
+      },
+      "sellers": {
+        "title": "Для продавцов",
+        "openShop": "Открыть магазин",
+        "guide": "Руководство продавца",
+        "commissions": "Комиссии",
+        "successStories": "История успеха"
+      },
+      "company": {
+        "title": "Компания",
+        "about": "О нас",
+        "partnership": "Партнерство",
+        "careers": "Вакансии",
+        "contacts": "Контакты"
+      },
+      "address": "Ташкент, ул. Амира Темура, 12",
+      "rights": "© {year} Gulso. Все права защищены."
+    }
+  },
+  "Product": {
+    "status": {
+      "inStock": "В наличии",
+      "reliable": "Надежный",
+      "outOfStock": "Нет в наличии"
+    },
+    "reviews": "({count} отзывов)",
+    "seller": "Магазин продавца",
+    "descriptionLabel": "Описание и характеристики",
+    "addToCart": "В корзину",
+    "buyNow": "В корзину / Купить",
+    "delivery": {
+      "title": "Доставка",
+      "today": "Сегодня",
+      "express": "Экспресс (в течение 1 часа)",
+      "free": "Бесплатно"
+    },
+    "pickup": {
+      "title": "Самовывоз из магазина",
+      "available": "Доступно сегодня",
+      "store": "из магазина {store}"
+    },
+    "trust": {
+      "fast": "Быстрая доставка",
+      "quality": "Гарантия качества",
+      "payment": "Безопасная оплата"
+    },
+    "similarProducts": "Похожие товары",
+    "viewAll": "Все",
+    "currency": "сум",
+    "badgeNew": "Новинка",
+    "badgeTop": "Топ",
+    "notFound": "Товар не найден",
+    "backToCatalog": "Назад в каталог",
+    "reviewsSection": {
+      "title": "Отзывы покупателей",
+      "writeReview": "Оставить отзыв",
+      "submitted": {
+        "title": "Ваш отзыв принят!",
+        "subtitle": "Спасибо за обратную связь."
+      },
+      "form": {
+        "title": "Оставить отзыв",
+        "rating": "Оценка",
+        "content": "Ваше мнение",
+        "placeholder": "Напишите ваше мнение о товаре...",
+        "submit": "Отправить"
+      },
+      "empty": {
+        "title": "Отзывов пока нет",
+        "subtitle": "Будьте первым, кто оставит отзыв!"
+      },
+      "timeAgo": {
+        "today": "Сегодня",
+        "yesterday": "Вчера",
+        "daysAgo": "{count} дн. назад",
+        "weeksAgo": "{count} нед. назад",
+        "monthsAgo": "{count} мес. назад",
+        "yearsAgo": "{count} лет назад"
+      }
+    }
+  },
+  "ProductGrid": {
+    "title": "Рекомендуемые товары",
+    "showMore": "Показать больше"
+  },
+  "HeroBanner": {
+    "shopNow": "Купить сейчас",
+    "learnMore": "Подробнее",
+    "slides": [
+      {
+        "badge": "Новая Коллекция",
+        "title": "Самые красивые цветы и подарки",
+        "description": "Лучшие цветы, сладости и незабываемые подарки. Поделитесь радостью с нами."
+      },
+      {
+        "badge": "Скидка 20%",
+        "title": "Особые подарки на день рождения",
+        "description": "Лучшие идеи и наборы, чтобы сделать день рождения ваших близких незабываемым."
+      },
+      {
+        "badge": "Хит продаж",
+        "title": "Вкусная и красивая выпечка",
+        "description": "Создавайте сладкие моменты с домашней выпечкой, сделанной с любовью."
+      }
+    ]
+  },
+  "Newsletter": {
+    "title": "Узнавайте о новых скидках первыми!",
+    "description": "Оставьте email и получите купон на 10% скидку на первую покупку.",
+    "placeholder": "Ваш email адрес",
+    "subscribe": "Подписаться"
+  },
+  "Shop": {
+    "tabs": {
+      "all": "Все",
+      "flowers": "Цветы",
+      "gifts": "Подарки",
+      "bakery": "Выпечка"
+    },
+    "notFound": "Магазин не найден",
+    "backToCatalog": "Назад в каталог",
+    "sidebar": {
+      "info": "Информация",
+      "workingHours": "Время работы",
+      "address": "Адрес",
+      "delivery": "Доставка",
+      "deliveryText": "60 минут по всему Ташкенту",
+      "registered": "Зарегистрирован",
+      "verified": "Подтверждён",
+      "subscribe": "Подписаться"
+    },
+    "promo": {
+      "title": "Предложение дня! 🔥",
+      "description": "Получите {discount}% скидку на первый заказ!"
+    },
+    "products": {
+      "empty": "Товары не найдены",
+      "emptySubtitle": "В этой категории пока нет товаров"
+    }
+  },
+  "Notifications": {
+    "title": "Уведомления",
+    "markAllRead": "Отметить все как прочитанные",
+    "newCount": "{count} новых",
+    "noNotifications": "Уведомлений пока нет",
+    "noNotificationsHere": "Здесь нет уведомлений",
+    "viewAll": "Смотреть все уведомления",
+    "reviewRequest": "Запрос отзыва",
+    "viewOrder": "Посмотреть заказ",
+    "filters": {
+      "all": "Все",
+      "orders": "Заказы",
+      "reviews": "Отзывы"
+    },
+    "groups": {
+      "new": "Новые",
+      "earlier": "Ранее",
+      "read": "Прочитанные"
+    },
+    "timeAgo": {
+      "justNow": "только что",
+      "minutesAgo": "{count} мин назад",
+      "hoursAgo": "{count} ч назад",
+      "yesterday": "вчера",
+      "daysAgo": "{count} дн. назад"
+    },
+    "reviewCard": {
+      "rateYour": "Оцените покупку",
+      "ratings": {
+        "poor": "Плохо",
+        "fair": "Удовлетворительно",
+        "good": "Хорошо",
+        "veryGood": "Очень хорошо",
+        "excellent": "Отлично"
+      },
+      "placeholder": "Поделитесь опытом (необязательно)...",
+      "submit": "Отправить отзыв",
+      "submitted": {
+        "title": "Спасибо за отзыв!",
+        "subtitle": "Ваш отзыв помогает другим покупателям."
+      }
+    }
+  },
+  "NotFound": {
+    "title": "Страница не найдена",
+    "description": "Страница, которую вы ищете, не существует или была перемещена. Вернитесь на главную и начните новый поиск.",
+    "backHome": "На главную",
+    "viewCatalog": "В каталог",
+    "goBack": "Назад"
+  },
+  "CategoryCards": {
+    "categories": [
+      {
+        "title": "Цветы",
+        "description": "Лучшие цветы для любого случая"
+      },
+      {
+        "title": "Подарки",
+        "description": "Незабываемые подарки для ваших близких"
+      },
+      {
+        "title": "Выпечка",
+        "description": "Домашние сладости"
+      }
+    ]
+  }
 }

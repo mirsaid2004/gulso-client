@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -8,11 +9,30 @@ import {
     HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Menu, ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { categories, products } from "@/data/mockData";
+import { categories } from "@/data/mockData";
+import { useTranslations } from "next-intl";
+import { ProductCard } from "@/components/blocks/ProductCard";
+import { useProducts } from "@/features/products/api/get-products";
+import { toCardProps } from "@/lib/product-mapper";
+import { ProductCategory } from "@/types";
+
+const CATEGORY_TO_ENUM: Record<string, ProductCategory> = {
+    "gullar":       ProductCategory.FLOWERS,
+    "sovg'alar":    ProductCategory.GIFTS,
+    "pishiriqlar":  ProductCategory.BAKERY,
+};
 
 export default function CatalogMenu() {
+    const t = useTranslations('Layout.header.catalog');
+    const [activeId, setActiveId] = useState(categories[0].id);
+
+    const { data, isFetching } = useProducts({
+        params: { category: CATEGORY_TO_ENUM[activeId], size: 3 },
+    });
+
+    const featured = data?.data ?? [];
+
     return (
         <HoverCard>
             <HoverCardTrigger
@@ -22,64 +42,61 @@ export default function CatalogMenu() {
                 )}
             >
                 <Menu className="w-4 h-4" />
-                Katalog
+                {t('title')}
             </HoverCardTrigger>
 
             <HoverCardContent
                 align="start"
                 sideOffset={12}
-                className="w-[800px] p-0 rounded-2xl border-primary/10 shadow-xl flex"
+                className="w-[960px] p-0 rounded-2xl border-primary/10 shadow-xl flex overflow-hidden"
             >
-                {/* Left sidebar: Categories */}
-                <div className="w-1/3 bg-slate-50 p-4 border-r border-slate-100 flex flex-col gap-2">
-                    <h3 className="font-bold text-slate-900 mb-2 px-3">Kategoriyalar</h3>
-                    {categories.map((cat) => (
-                        <Link
-                            key={cat.id}
-                            href={`/category/${cat.id}`}
-                            className="flex flex-col px-3 py-2 rounded-xl hover:bg-white hover:shadow-sm transition-all group/item"
-                        >
-                            <span className="font-bold text-sm text-slate-700 group-hover/item:text-primary transition-colors">
+                {/* Left sidebar — narrower */}
+                <div className="w-44 shrink-0 bg-slate-50 py-4 border-r border-slate-100 flex flex-col gap-0.5">
+                    <h3 className="font-bold text-slate-900 mb-2 px-4 text-sm">{t('categories')}</h3>
+                    {categories.map((cat) => {
+                        const isActive = cat.id === activeId;
+                        return (
+                            <Link
+                                key={cat.id}
+                                href={`/category/${cat.id}`}
+                                onMouseEnter={() => setActiveId(cat.id)}
+                                className={cn(
+                                    "flex items-center justify-between px-4 py-2.5 text-sm font-bold transition-all",
+                                    isActive
+                                        ? "bg-white text-primary shadow-sm"
+                                        : "text-slate-600 hover:bg-white/60 hover:text-primary"
+                                )}
+                            >
                                 {cat.title}
-                            </span>
-                        </Link>
-                    ))}
+                                {isActive && <ArrowRight className="w-3.5 h-3.5 shrink-0" />}
+                            </Link>
+                        );
+                    })}
                 </div>
 
-                {/* Right side: Highlighted Products */}
-                <div className="w-2/3 p-6 bg-white">
+                {/* Right side — 3-col product grid */}
+                <div className="flex-1 p-5 bg-white">
                     <div className="flex justify-between items-center mb-4">
-                        <h3 className="font-bold text-slate-900">Ommabop mahsulotlar</h3>
+                        <h3 className="font-bold text-slate-900">
+                            {categories.find((c) => c.id === activeId)?.title ?? t('popular')}
+                        </h3>
                         <Link
-                            href="/catalog"
+                            href={`/catalog?category=${CATEGORY_TO_ENUM[activeId]}`}
                             className="text-xs font-bold text-primary flex items-center gap-1 hover:underline"
                         >
-                            Barchasini ko'rish <ArrowRight className="w-3 h-3" />
+                            {t('viewAll')} <ArrowRight className="w-3 h-3" />
                         </Link>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                        {products.slice(0, 2).map((prod) => (
-                            <Link
-                                key={prod.id}
-                                href={`/product/${prod.id}`}
-                                className="group/prod flex flex-col border border-primary/5 rounded-xl p-2 hover:shadow-md hover:border-primary/20 transition-all bg-slate-50/50 hover:bg-white"
-                            >
-                                <div className="relative aspect-square rounded-lg overflow-hidden mb-2">
-                                    <Image
-                                        src={prod.image}
-                                        alt={prod.title}
-                                        fill
-                                        className="object-cover transition-transform group-hover/prod:scale-105"
-                                    />
-                                </div>
-                                <h4 className="font-bold text-xs line-clamp-1 mb-1">
-                                    {prod.title}
-                                </h4>
-                                <p className="text-primary font-bold text-xs">
-                                    {prod.price.toLocaleString()} so'm
-                                </p>
-                            </Link>
-                        ))}
+
+                    <div className="grid grid-cols-3 gap-4">
+                        {isFetching
+                            ? Array.from({ length: 3 }).map((_, i) => (
+                                <div key={i} className="bg-slate-100 rounded-2xl aspect-[3/4] animate-pulse" />
+                            ))
+                            : featured.map((p) => (
+                                <ProductCard key={p.id} product={toCardProps(p)} />
+                            ))
+                        }
                     </div>
                 </div>
             </HoverCardContent>

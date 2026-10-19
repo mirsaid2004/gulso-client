@@ -1,27 +1,7 @@
 import { Icon } from "@iconify/react";
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
-
-const footerLinks = {
-  buyers: [
-    { label: "Yetkazib berish", href: "#" },
-    { label: "To'lov usullari", href: "#" },
-    { label: "Qaytarish siyosati", href: "#" },
-    { label: "Savol va javoblar", href: "#" },
-  ],
-  company: [
-    { label: "Biz haqimizda", href: "#" },
-    { label: "Hamkorlik", href: "#" },
-    { label: "Vakansiyalar", href: "#" },
-    { label: "Kontaktlar", href: "#" },
-  ],
-  sellers: [
-    { label: "Do'kon ochish", href: "#" },
-    { label: "Sotuvchi qo'llanmasi", href: "#" },
-    { label: "Komissiyalar", href: "#" },
-    { label: "Muvaffaqiyat tarixi", href: "#" },
-  ],
-};
+import { Image } from "@/components/ui/image";
+import { useTranslations } from "next-intl";
 
 const socialLinks = [
   { icon: "mdi:instagram", href: "#", label: "Instagram" },
@@ -31,7 +11,29 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const t = useTranslations('Layout.footer');
   const year = new Date().getFullYear();
+
+  const footerLinks = {
+    buyers: [
+      { label: t('buyers.delivery'), href: "#" },
+      { label: t('buyers.payments'), href: "#" },
+      { label: t('buyers.returns'), href: "#" },
+      { label: t('buyers.faq'), href: "#" },
+    ],
+    company: [
+      { label: t('company.about'), href: "#" },
+      { label: t('company.partnership'), href: "#" },
+      { label: t('company.careers'), href: "#" },
+      { label: t('company.contacts'), href: "#" },
+    ],
+    sellers: [
+      { label: t('sellers.openShop'), href: "#" },
+      { label: t('sellers.guide'), href: "#" },
+      { label: t('sellers.commissions'), href: "#" },
+      { label: t('sellers.successStories'), href: "#" },
+    ],
+  };
   return (
     <footer className="bg-white border-t border-slate-100 mt-auto">
       <div className="max-w-7xl 2xl:max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,8 +57,7 @@ export function Footer() {
 
             {/* Tagline */}
             <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-xs">
-              Eng go'zal gullar va unutilmas sovg'alar — har qanday bayraming
-              eng ajoyib qismiga aylanamiz.
+              {t('tagline')}
             </p>
 
             {/* Contact quick-links */}
@@ -87,7 +88,7 @@ export function Footer() {
                   className="w-4 h-4 text-primary shrink-0 mt-0.5"
                 />
                 <span className="font-medium">
-                  Toshkent sh., Amir Temur ko'chasi, 12
+                  {t('address')}
                 </span>
               </div>
             </div>
@@ -110,7 +111,7 @@ export function Footer() {
           {/* Column: Buyers */}
           <div>
             <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-5">
-              Xaridorlar uchun
+              {t('buyers.title')}
             </h4>
             <ul className="space-y-3">
               {footerLinks.buyers.map(({ label, href }) => (
@@ -129,7 +130,7 @@ export function Footer() {
           {/* Column: Sellers */}
           <div>
             <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-5">
-              Sotuvchilar uchun
+              {t('sellers.title')}
             </h4>
             <ul className="space-y-3">
               {footerLinks.sellers.map(({ label, href }) => (
@@ -148,7 +149,7 @@ export function Footer() {
           {/* Column: Company */}
           <div>
             <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-5">
-              Kompaniya
+              {t('company.title')}
             </h4>
             <ul className="space-y-3">
               {footerLinks.company.map(({ label, href }) => (
@@ -168,7 +169,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-400 text-xs font-medium">
-            © {year} Gulso. Barcha huquqlar himoyalangan.
+            {t('rights', { year })}
           </p>
           <div className="flex items-center gap-3">
             {/* Payment methods */}

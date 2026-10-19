@@ -1,51 +1,124 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { ProductCategory } from "@/types";
 
-export function CatalogFilters() {
-    const [priceSort, setPriceSort] = useState<"cheap" | "expensive">("cheap");
-    const [popularity, setPopularity] = useState<string[]>(["bestseller"]);
-    const [minPrice, setMinPrice] = useState("");
-    const [maxPrice, setMaxPrice] = useState("");
-    const [minRating, setMinRating] = useState<number | null>(null);
+export interface CatalogFilterState {
+    category: ProductCategory | undefined;
+    minPrice: string;
+    maxPrice: string;
+    isNew: boolean;
+    isInStock: boolean;
+    hasDiscount: boolean;
+    sortBy: string;
+    sortDir: "asc" | "desc";
+}
 
-    const togglePopularity = (val: string) => {
-        setPopularity((prev) =>
-            prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
-        );
-    };
+export const DEFAULT_FILTERS: CatalogFilterState = {
+    category: undefined,
+    minPrice: "",
+    maxPrice: "",
+    isNew: false,
+    isInStock: false,
+    hasDiscount: false,
+    sortBy: "id",
+    sortDir: "desc",
+};
+
+interface Props {
+    value: CatalogFilterState;
+    onChange: (v: CatalogFilterState) => void;
+    onApply: () => void;
+    onReset: () => void;
+}
+
+const SORT_OPTIONS = (t: ReturnType<typeof useTranslations>) => [
+    { sortBy: "id",     sortDir: "desc" as const, label: t("sort.newest") },
+    { sortBy: "price",  sortDir: "asc"  as const, label: t("sort.cheapest") },
+    { sortBy: "price",  sortDir: "desc" as const, label: t("sort.expensive") },
+    { sortBy: "rating", sortDir: "desc" as const, label: t("sort.topRated") },
+];
+
+const CATEGORIES = (t: ReturnType<typeof useTranslations>) => [
+    { value: undefined,                label: t("category.all") },
+    { value: ProductCategory.FLOWERS,  label: t("category.flowers") },
+    { value: ProductCategory.GIFTS,    label: t("category.gifts") },
+    { value: ProductCategory.BAKERY,   label: t("category.bakery") },
+];
+
+export function CatalogFilters({ value, onChange, onApply, onReset }: Props) {
+    const t = useTranslations("Catalog.filters");
+
+    const set = (patch: Partial<CatalogFilterState>) => onChange({ ...value, ...patch });
+
+    const activeSort = SORT_OPTIONS(t).findIndex(
+        (o) => o.sortBy === value.sortBy && o.sortDir === value.sortDir
+    );
+
+    const toggleFlag = (key: "isNew" | "isInStock" | "hasDiscount") =>
+        set({ [key]: !value[key] });
 
     return (
         <aside className="w-full lg:w-64 shrink-0">
             <div className="sticky top-[100px] flex flex-col gap-4">
 
-                {/* Sort by Price */}
+                {/* Category */}
                 <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
                     <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                        Narx bo'yicha
+                        {t("category.title")}
                     </h3>
-                    <div className="flex flex-col gap-1.5">
-                        {[
-                            { val: "cheap" as const, icon: "material-symbols:trending-down-rounded", label: "Arzonroq" },
-                            { val: "expensive" as const, icon: "material-symbols:trending-up-rounded", label: "Qimmatroq" },
-                        ].map(({ val, icon, label }) => (
-                            <label
-                                key={val}
-                                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-l-2 ${priceSort === val
-                                        ? "bg-primary/5 border-l-primary text-primary"
-                                        : "bg-transparent border-l-transparent text-slate-600 hover:bg-slate-50 hover:text-primary"
+                    <div className="flex flex-col gap-1">
+                        {CATEGORIES(t).map(({ value: cat, label }) => {
+                            const active = value.category === cat;
+                            return (
+                                <button
+                                    key={String(cat)}
+                                    onClick={() => set({ category: cat })}
+                                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all text-left border-l-2 ${
+                                        active
+                                            ? "bg-primary/5 border-l-primary text-primary"
+                                            : "border-l-transparent text-slate-600 hover:bg-slate-50 hover:text-primary"
                                     }`}
+                                >
+                                    <span
+                                        className={`w-4 h-4 rounded-full border-2 shrink-0 transition-all ${
+                                            active ? "border-primary bg-primary" : "border-slate-300"
+                                        }`}
+                                    />
+                                    {label}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Sort */}
+                <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
+                        {t("sort.title")}
+                    </h3>
+                    <div className="flex flex-col gap-1">
+                        {SORT_OPTIONS(t).map((opt, idx) => (
+                            <label
+                                key={idx}
+                                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-l-2 ${
+                                    activeSort === idx
+                                        ? "bg-primary/5 border-l-primary text-primary"
+                                        : "border-l-transparent text-slate-600 hover:bg-slate-50 hover:text-primary"
+                                }`}
                             >
                                 <input
                                     type="radio"
                                     name="sort"
                                     className="hidden"
-                                    checked={priceSort === val}
-                                    onChange={() => setPriceSort(val)}
+                                    checked={activeSort === idx}
+                                    onChange={() => set({ sortBy: opt.sortBy, sortDir: opt.sortDir })}
                                 />
-                                <Icon icon={icon} className="text-xl shrink-0" />
-                                <span className="text-sm font-bold">{label}</span>
+                                <span className={`w-4 h-4 rounded-full border-2 shrink-0 transition-all ${
+                                    activeSort === idx ? "border-primary bg-primary" : "border-slate-300"
+                                }`} />
+                                <span className="text-sm font-bold">{opt.label}</span>
                             </label>
                         ))}
                     </div>
@@ -54,54 +127,54 @@ export function CatalogFilters() {
                 {/* Price Range */}
                 <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
                     <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                        Narx oralig'i
+                        {t("price.range")}
                     </h3>
                     <div className="flex gap-2 items-center">
                         <input
                             type="number"
-                            placeholder="Min"
-                            value={minPrice}
-                            onChange={(e) => setMinPrice(e.target.value)}
+                            placeholder={t("price.min")}
+                            value={value.minPrice}
+                            onChange={(e) => set({ minPrice: e.target.value })}
                             className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 placeholder:text-slate-300"
                         />
                         <span className="text-slate-300 font-bold text-lg shrink-0">—</span>
                         <input
                             type="number"
-                            placeholder="Max"
-                            value={maxPrice}
-                            onChange={(e) => setMaxPrice(e.target.value)}
+                            placeholder={t("price.max")}
+                            value={value.maxPrice}
+                            onChange={(e) => set({ maxPrice: e.target.value })}
                             className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 placeholder:text-slate-300"
                         />
                     </div>
-                    <p className="mt-2 text-[10px] font-bold text-slate-400 text-right tracking-wide">so'm</p>
+                    <p className="mt-2 text-[10px] font-bold text-slate-400 text-right tracking-wide">
+                        {t("price.currency")}
+                    </p>
                 </div>
 
-                {/* Filters */}
+                {/* Flags */}
                 <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
                     <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                        Ommabopligi
+                        {t("popularity.title")}
                     </h3>
                     <div className="flex flex-col gap-1.5">
-                        {[
-                            { val: "bestseller", label: "Eng ko'p sotilgan" },
-                            { val: "new", label: "Yangi kelganlar" },
-                            { val: "discount", label: "Chegirmalar" },
-                        ].map(({ val, label }) => (
+                        {([
+                            { key: "isNew",       label: t("popularity.new") },
+                            { key: "isInStock",   label: t("popularity.inStock") },
+                            { key: "hasDiscount", label: t("popularity.discount") },
+                        ] as const).map(({ key, label }) => (
                             <label
-                                key={val}
-                                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-l-2 ${popularity.includes(val)
+                                key={key}
+                                onClick={() => toggleFlag(key)}
+                                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-l-2 ${
+                                    value[key]
                                         ? "bg-primary/5 border-l-primary text-primary"
                                         : "border-l-transparent text-slate-600 hover:bg-slate-50"
-                                    }`}
-                                onClick={() => togglePopularity(val)}
+                                }`}
                             >
-                                <div
-                                    className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${popularity.includes(val)
-                                            ? "border-primary bg-primary"
-                                            : "border-slate-300"
-                                        }`}
-                                >
-                                    {popularity.includes(val) && (
+                                <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
+                                    value[key] ? "border-primary bg-primary" : "border-slate-300"
+                                }`}>
+                                    {value[key] && (
                                         <Icon icon="material-symbols:check-rounded" className="w-3 h-3 text-white" />
                                     )}
                                 </div>
@@ -111,47 +184,21 @@ export function CatalogFilters() {
                     </div>
                 </div>
 
-                {/* Minimum Rating */}
-                <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                        Reyting
-                    </h3>
-                    <div className="flex flex-col gap-1.5">
-                        {[4, 3, 2].map((stars) => (
-                            <label
-                                key={stars}
-                                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-l-2 ${minRating === stars
-                                        ? "bg-primary/5 border-l-primary"
-                                        : "border-l-transparent hover:bg-slate-50"
-                                    }`}
-                                onClick={() => setMinRating(minRating === stars ? null : stars)}
-                            >
-                                <div className="flex items-center gap-0.5 text-amber-400">
-                                    {Array.from({ length: 5 }).map((_, i) => (
-                                        <Icon
-                                            key={i}
-                                            icon={i < stars ? "material-symbols:star-rounded" : "material-symbols:star-outline-rounded"}
-                                            className="w-4 h-4"
-                                        />
-                                    ))}
-                                </div>
-                                <span className="text-xs font-bold text-slate-600">va yuqori</span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Apply Button */}
+                {/* Apply */}
                 <button
+                    onClick={onApply}
                     style={{ background: "linear-gradient(135deg, #e7236a 0%, #c41d5e 100%)" }}
                     className="w-full h-12 text-white rounded-xl font-black text-sm shadow-md shadow-primary/20 hover:opacity-95 active:scale-[0.98] transition-all"
                 >
-                    Filtrni qo'llash
+                    {t("apply")}
                 </button>
 
                 {/* Reset */}
-                <button className="w-full h-10 text-slate-400 text-xs font-bold hover:text-primary transition-colors">
-                    Filtrlarni tozalash
+                <button
+                    onClick={onReset}
+                    className="w-full h-10 text-slate-400 text-xs font-bold hover:text-primary transition-colors"
+                >
+                    {t("reset")}
                 </button>
             </div>
         </aside>

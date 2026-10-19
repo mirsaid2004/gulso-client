@@ -3,21 +3,28 @@
 import { useState, useRef, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 import { useRouter } from "@/i18n/routing";
-import { products } from "@/data/mockData";
+import { useTranslations } from "next-intl";
+import { useProducts } from "@/features/products/api/get-products";
+import { toCardProps } from "@/lib/product-mapper";
 
 export default function SearchBar() {
     const [query, setQuery] = useState("");
     const [open, setOpen] = useState(false);
     const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const router = useRouter();
+    const t = useTranslations('Layout.header.search');
+    const tCart = useTranslations('Checkout.cart');
+
+    const { data } = useProducts();
+    const allProducts = (data?.data ?? []).map(toCardProps);
 
     const filtered = query.trim()
-        ? products.filter((p) =>
+        ? allProducts.filter((p) =>
             p.title.toLowerCase().includes(query.toLowerCase())
         )
-        : products;
+        : allProducts;
 
     const handleFocus = () => {
         if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -52,7 +59,7 @@ export default function SearchBar() {
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    placeholder="Mahsulotlarni qidirish..."
+                    placeholder={t('placeholder')}
                     className="w-full pl-12 pr-16 py-5 bg-slate-100 border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0 text-sm"
                 />
 
@@ -74,10 +81,10 @@ export default function SearchBar() {
                         {/* Results header */}
                         <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-slate-100">
                             <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-                                {query.trim() ? `Natijalar: "${query}"` : "Ommabop mahsulotlar"}
+                                {query.trim() ? t('resultsFor', { query }) : t('popular')}
                             </span>
                             <span className="text-xs text-muted-foreground">
-                                {filtered.length} ta
+                                {t('counts', { count: filtered.length })}
                             </span>
                         </div>
 
@@ -107,7 +114,7 @@ export default function SearchBar() {
                                                 </p>
                                             </div>
                                             <span className="text-sm font-bold text-primary shrink-0">
-                                                {prod.price.toLocaleString()} so'm
+                                                {prod.price.toLocaleString()} {tCart('summary.currency')}
                                             </span>
                                         </button>
                                     </li>
@@ -115,7 +122,7 @@ export default function SearchBar() {
                             </ul>
                         ) : (
                             <p className="px-4 py-6 text-center text-sm text-muted-foreground">
-                                Hech narsa topilmadi
+                                {t('noResults')}
                             </p>
                         )}
 
@@ -125,7 +132,7 @@ export default function SearchBar() {
                                 onMouseDown={handleViewAll}
                                 className="w-full flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold text-primary hover:bg-primary/5 transition-colors"
                             >
-                                Barchasini ko'rish <ArrowRight className="w-3 h-3" />
+                                {t('viewAll')} <ArrowRight className="w-3 h-3" />
                             </button>
                         </div>
                     </div>

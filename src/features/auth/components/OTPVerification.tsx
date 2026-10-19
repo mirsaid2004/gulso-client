@@ -3,25 +3,72 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Icon } from '@iconify/react';
+import { Image } from '@/components/ui/image';
 import { useState, useRef, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+import { useSendOtp } from '@/features/auth/api/send-otp';
+import { useVerifyOtp } from '@/features/auth/api/verify-otp';
+
+const TIMER_DURATION = 59;
 
 interface OTPVerificationProps {
   phoneNumber: string;
-  onVerify: (code: string) => void;
+  onVerify: () => void;
 }
 
 export function OTPVerification({
   phoneNumber,
   onVerify,
 }: OTPVerificationProps) {
+  const t = useTranslations('Auth.verification');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const [timeLeft, setTimeLeft] = useState(TIMER_DURATION);
+  const [isExpired, setIsExpired] = useState(false);
+
+  const { mutate: sendOtp, isPending: isSending } = useSendOtp();
+
+  const { mutate: verifyOtp, isPending: isVerifying, isError, error } = useVerifyOtp({
+    mutationConfig: { onSuccess: onVerify },
+  });
 
   useEffect(() => {
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
   }, []);
+
+  useEffect(() => {
+    if (isExpired) return;
+    if (timeLeft <= 0) {
+      setIsExpired(true);
+      return;
+    }
+    const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000);
+    return () => clearTimeout(id);
+  }, [timeLeft, isExpired]);
+
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, '0');
+    const s = (secs % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  const handleResend = () => {
+    const rawPhone = `+998${phoneNumber.replace(/\s/g, '')}`;
+    sendOtp(
+      { phone: rawPhone },
+      {
+        onSuccess: () => {
+          setTimeLeft(TIMER_DURATION);
+          setIsExpired(false);
+          setOtp(['', '', '', '', '', '']);
+          inputRefs.current[0]?.focus();
+        },
+      }
+    );
+  };
 
   const handleChange = (index: number, value: string) => {
     if (value.length > 1) {
@@ -51,9 +98,9 @@ export function OTPVerification({
 
   const handleVerify = () => {
     const code = otp.join('');
-    if (code.length === 6) {
-      onVerify(code);
-    }
+    if (code.length < 6) return;
+    const rawPhone = `+998${phoneNumber.replace(/\s/g, '')}`;
+    verifyOtp({ phone: rawPhone, otp: code });
   };
 
   return (
@@ -64,22 +111,23 @@ export function OTPVerification({
       )}
     >
       <div className="flex flex-col items-center gap-3 w-full mt-4 sm:mt-0">
-        <div className="w-16 h-16 shrink-0 rounded-full bg-primary/10 flex items-center justify-center shadow-inner text-primary">
-          <Icon
-            icon="material-symbols:lock-outline-rounded"
-            className="w-8 h-8"
-          />
+        <div className="flex items-center gap-2">
+          <Image src="/images/logo.svg" alt="Gulso" width={44} height={44} />
+          <span className="text-3xl font-black text-primary tracking-tighter">Gulso</span>
         </div>
         <h1 className="text-3xl font-black tracking-tight text-slate-900">
-          Tasdiqlash
+          {t('title')}
         </h1>
         <p className="text-slate-500 font-medium text-sm leading-relaxed max-w-xs mx-auto">
-          Tasdiqlash kodi{' '}
-          <span className="font-bold text-slate-900">
-            +998{' '}
-            {phoneNumber.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4')}
-          </span>{' '}
-          raqamiga yuborildi
+          {t.rich('subtitle', {
+            phone: phoneNumber.replace(
+              /(\d{2})(\d{3})(\d{2})(\d{2})/,
+              '$1 $2 $3 $4'
+            ),
+            bold: (chunks) => (
+              <span className="font-bold text-slate-900">{chunks}</span>
+            ),
+          })}
         </p>
       </div>
 
@@ -105,39 +153,61 @@ export function OTPVerification({
 
       {/* Timer */}
       <div className="flex flex-col items-center gap-4 w-full mt-2">
-        <div className="flex items-center gap-2 bg-primary/5 px-4 py-2 rounded-full border border-primary/10 shadow-sm">
-          <Icon
-            icon="material-symbols:schedule-rounded"
-            className="text-primary w-4 h-4"
-          />
-          <p className="text-primary font-bold text-sm tracking-wide">00:59</p>
-        </div>
+        {!isExpired && (
+          <div className="flex items-center gap-2 bg-primary/5 px-4 py-2 rounded-full border border-primary/10 shadow-sm">
+            <Icon
+              icon="material-symbols:schedule-rounded"
+              className="text-primary w-4 h-4"
+            />
+            <p className="text-primary font-bold text-sm tracking-wide">
+              {formatTime(timeLeft)}
+            </p>
+          </div>
+        )}
         <button
+          onClick={handleResend}
+          disabled={!isExpired || isSending}
           className="text-slate-400 text-sm font-bold hover:text-primary transition-colors disabled:opacity-50 mt-1"
-          disabled
         >
-          Kodni qayta yuborish
+          {isSending ? (
+            <Icon icon="line-md:loading-twotone-loop" className="w-4 h-4" />
+          ) : (
+            t('resendCode')
+          )}
         </button>
       </div>
+
+      {/* Error */}
+      {isError && (
+        <div className="w-full px-4 py-3 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 text-sm font-bold text-center">
+          {error?.message === 'CredentialsSignin'
+            ? t('invalidCode')
+            : error?.message ?? t('invalidCode')}
+        </div>
+      )}
 
       {/* Action Button */}
       <div className="w-full pt-4">
         <Button
           onClick={handleVerify}
-          disabled={otp.join('').length < 6}
+          disabled={otp.join('').length < 6 || isVerifying}
           className="w-full h-14 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 text-base disabled:opacity-50"
         >
-          Tasdiqlash
+          {isVerifying ? (
+            <Icon icon="line-md:loading-twotone-loop" className="w-6 h-6" />
+          ) : (
+            t('verify')
+          )}
         </Button>
       </div>
 
       {/* Footer Support */}
       <p className="text-slate-400 text-xs font-semibold">
-        Kod kelmadimi?{' '}
+        {t('noCode')}{' '}
         <a className="text-primary hover:underline font-bold" href="#">
-          Yordam markazi
+          {t('helpCenter')}
         </a>{' '}
-        bilan bog'laning
+        {t('contactSupport')}
       </p>
 
       {/* Hide number arrows style */}

@@ -22,18 +22,32 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Gulso",
-  description: "Gulso - это интернет-магазин цветов.",
+  description: "Gulso — online flower & gift shop.",
+  icons: {
+    icon: "/images/logo.svg",
+    apple: "/images/logo.svg",
+  },
+  openGraph: {
+    title: "Gulso",
+    description: "Gulso — online flower & gift shop.",
+    images: [{ url: "/images/logo.svg", width: 1024, height: 1024, alt: "Gulso" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Gulso",
+    images: ["/images/logo.svg"],
+  },
 };
 
-if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
-  require("../../../mocks");
-}
+import { AppProvider } from "@/lib/app-provider";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages();
+
   return (
     <html lang="en">
       <head>
@@ -42,9 +56,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
       >
-        <NextIntlClientProvider>
-          {children}
-          <Toaster />
+        <NextIntlClientProvider messages={messages}>
+          <AppProvider>
+            {children}
+          </AppProvider>
         </NextIntlClientProvider>
       </body>
     </html>

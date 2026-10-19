@@ -1,10 +1,32 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
+import { OrderResponse } from "@/types";
 
-export function ReceiptStep({ onHome }: { onHome: () => void }) {
+const SHIPPING = 20000;
+
+interface ReceiptStepProps {
+    order: OrderResponse | null;
+    onHome: () => void;
+}
+
+export function ReceiptStep({ order, onHome }: ReceiptStepProps) {
+    const t = useTranslations("Checkout.receipt");
+    const tCart = useTranslations("Checkout.cart");
+    const tFooter = useTranslations("Layout.footer");
+
+    const total = order ? order.totalAmount + SHIPPING : 0;
+    const formattedDate = order
+        ? new Date(order.deliveryDate).toLocaleDateString("uz-UZ", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+          })
+        : "";
+
     return (
         <div className="relative flex min-h-screen w-full flex-col bg-[#f8f6f7] overflow-x-hidden">
             <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/50 backdrop-blur-md px-6 py-4 lg:px-40 sticky top-0 z-50">
@@ -25,103 +47,123 @@ export function ReceiptStep({ onHome }: { onHome: () => void }) {
                         <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6 shadow-sm shadow-primary/20">
                             <Icon icon="material-symbols:check-circle-rounded" className="text-6xl text-primary animate-in zoom-in duration-500 delay-150" />
                         </div>
-                        <h1 className="text-slate-900 tracking-tight text-4xl font-black leading-tight">Buyurtma qabul qilindi!</h1>
-                        <p className="text-primary font-black mt-3 bg-primary/5 px-4 py-1.5 rounded-lg border border-primary/10 tracking-wider">Buyurtma raqami: #GS-88421</p>
+                        <h1 className="text-slate-900 tracking-tight text-4xl font-black leading-tight">{t("title")}</h1>
+                        {order && (
+                            <p className="text-primary font-black mt-3 bg-primary/5 px-4 py-1.5 rounded-lg border border-primary/10 tracking-wider">
+                                {t("orderNumber", { number: `GS-${String(order.id).padStart(5, "0")}` })}
+                            </p>
+                        )}
                     </div>
 
-                    <div className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-8 sm:p-10 mb-6 space-y-8 relative overflow-hidden group">
-                        <div className="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full pointer-events-none group-hover:scale-150 transition-transform duration-700"></div>
+                    <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-8 sm:p-10 mb-6 space-y-8 relative overflow-hidden group">
+                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/10 transition-colors duration-500" />
 
+                        {/* Order Items */}
+                        {order && order.items.length > 0 && (
+                            <div>
+                                <h3 className="text-xl font-black mb-5 border-b-2 border-slate-50 pb-4 flex items-center gap-3">
+                                    <Icon icon="material-symbols:shopping-bag-outline" className="text-primary" />
+                                    Items ({order.items.length})
+                                </h3>
+                                <div className="flex flex-col gap-3">
+                                    {order.items.map((item) => (
+                                        <div key={item.id} className="flex items-center gap-4">
+                                            {item.productImageUrl && (
+                                                <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-100 shrink-0 relative">
+                                                    <Image src={item.productImageUrl} alt={item.productName} fill className="object-cover" />
+                                                </div>
+                                            )}
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-bold text-slate-900 text-sm truncate">{item.productName}</p>
+                                                <p className="text-xs text-slate-400 font-bold">x{item.quantity}</p>
+                                            </div>
+                                            <p className="font-black text-slate-900 text-sm shrink-0">{item.subtotal.toLocaleString()} {tCart("summary.currency")}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Summary */}
                         <div>
                             <h3 className="text-xl font-black mb-6 border-b-2 border-slate-50 pb-4 flex items-center gap-3">
                                 <Icon icon="material-symbols:receipt-long-outline-rounded" className="text-primary" />
-                                To'lov tafsilotlari
+                                {t("details")}
                             </h3>
                             <div className="space-y-4 font-bold text-[15px]">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-slate-500">Mahsulotlar narxi</span>
-                                    <span className="text-slate-900 tracking-tight">450,000 so'm</span>
+                                    <span className="text-slate-500">{t("itemsPrice")}</span>
+                                    <span className="text-slate-900 tracking-tight">{(order?.totalAmount ?? 0).toLocaleString()} {tCart("summary.currency")}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-slate-500">Yetkazib berish</span>
-                                    <span className="text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-md">25,000 so'm</span>
+                                    <span className="text-slate-500">{t("shipping")}</span>
+                                    <span className="text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-md">{SHIPPING.toLocaleString()} {tCart("summary.currency")}</span>
                                 </div>
                                 <div className="flex justify-between items-center pt-5 border-t-2 border-dashed border-slate-100 mt-2">
-                                    <span className="text-lg font-black text-slate-400 uppercase tracking-widest">Jami summa</span>
-                                    <span className="text-3xl font-black text-primary tracking-tighter">475,000 <span className="text-sm">so'm</span></span>
+                                    <span className="text-lg font-black text-slate-400 uppercase tracking-widest">{t("total")}</span>
+                                    <span className="text-3xl font-black text-primary tracking-tighter">{total.toLocaleString()} <span className="text-sm">{tCart("summary.currency")}</span></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
-                            <h3 className="text-xl font-black mb-6 border-b-2 border-slate-50 pb-4 flex items-center gap-3 mt-8">
-                                <Icon icon="material-symbols:local-shipping-outline-rounded" className="text-primary" />
-                                Yetkazib berish ma'lumotlari
-                            </h3>
-                            <div className="space-y-6">
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                                        <Icon icon="material-symbols:location-on-outline-rounded" className="w-5 h-5" />
+                        {/* Delivery info */}
+                        {order && (
+                            <div>
+                                <h3 className="text-xl font-black mb-6 border-b-2 border-slate-50 pb-4 flex items-center gap-3 mt-8">
+                                    <Icon icon="material-symbols:local-shipping-outline-rounded" className="text-primary" />
+                                    {t("deliveryInfo")}
+                                </h3>
+                                <div className="space-y-6">
+                                    {order.deliveryAddress && (
+                                        <div className="flex gap-4">
+                                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                                <Icon icon="material-symbols:location-on-outline-rounded" className="w-5 h-5" />
+                                            </div>
+                                            <div className="pt-0.5">
+                                                <p className="text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1">{t("address")}</p>
+                                                <p className="font-bold text-slate-900 leading-relaxed text-[15px]">{order.deliveryAddress}</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="flex gap-4">
+                                        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                            <Icon icon="material-symbols:schedule-outline-rounded" className="w-5 h-5" />
+                                        </div>
+                                        <div className="pt-0.5">
+                                            <p className="text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1">{t("time")}</p>
+                                            <p className="font-bold text-slate-900 text-[15px]">{formattedDate}</p>
+                                        </div>
                                     </div>
-                                    <div className="pt-0.5">
-                                        <p className="text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1">Manzil</p>
-                                        <p className="font-bold text-slate-900 leading-relaxed text-[15px]">Toshkent sh., Mirzo Ulug'bek tumani, Mustaqillik shoh ko'chasi, 12-uy</p>
-                                    </div>
-                                </div>
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                                        <Icon icon="material-symbols:schedule-outline-rounded" className="w-5 h-5" />
-                                    </div>
-                                    <div className="pt-0.5">
-                                        <p className="text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1">Vaqt</p>
-                                        <p className="font-bold text-slate-900 text-[15px]">Bugun, 18:00 - 20:00 oralig'ida</p>
-                                    </div>
-                                </div>
-                                <div className="flex gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                                        <Icon icon="material-symbols:payments-outline-rounded" className="w-5 h-5" />
-                                    </div>
-                                    <div className="pt-0.5">
-                                        <p className="text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1">To'lov usuli</p>
-                                        <p className="font-bold text-slate-900 text-[15px]">Naqd pul bilan (Qabul qilganda)</p>
+                                    <div className="flex gap-4">
+                                        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                            <Icon icon="material-symbols:payments-outline-rounded" className="w-5 h-5" />
+                                        </div>
+                                        <div className="pt-0.5">
+                                            <p className="text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1">{t("paymentMethod")}</p>
+                                            <p className="font-bold text-slate-900 text-[15px]">{t("cashOnDelivery")}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-4 mt-2">
-                        <button className="flex w-full items-center justify-center gap-2 rounded-2xl h-14 bg-primary text-white font-black transition-all active:scale-[0.98] shadow-lg shadow-primary/20 hover:bg-primary/95 text-base">
-                            <Icon icon="material-symbols:download-rounded" className="w-6 h-6" />
-                            Chekni yuklab olish
-                        </button>
-                        <button onClick={onHome} className="flex w-full items-center justify-center gap-2 rounded-2xl h-14 bg-white border-2 border-primary/10 text-primary font-black hover:bg-primary/5 transition-colors active:scale-[0.98] text-base">
+                        <button onClick={onHome} className="flex w-full items-center justify-center gap-2 rounded-2xl h-14 bg-primary text-white font-black transition-all active:scale-[0.98] shadow-lg shadow-primary/20 hover:bg-primary/95 text-base">
                             <Icon icon="material-symbols:home-outline-rounded" className="w-6 h-6" />
-                            Asosiy sahifaga qaytish
+                            {t("backHome")}
                         </button>
                     </div>
 
-                    <div className="mt-12 bg-white rounded-3xl p-2 border border-slate-100 shadow-sm">
-                        <div className="w-full h-48 rounded-[1.5rem] overflow-hidden grayscale opacity-80 group hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                            <div className="w-full h-full bg-slate-100 flex items-center justify-center relative">
-                                <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKHM_QCt-LVUgOEx2QGnsufsWXGrQmqrAWngolvkndag2rxHU6xU_Bpkfl0ww4yAhcIz2gsurUFxBd41ztQuxQTDPuAEpKgquf_t0bdyWFWxV9qOnP-1HOv13SKe-U2c1Q8sL-HAnd_-AjOCcM3Z5LTJ4m2iUEe4MArJRnBa9QwAd4QMMZsG753vD3Qvo0FvGtM2HKwJ2j2EjDzjvtak3jYSwomFF9P6klsKMldgBP735KdNOeRRYDFMiHoFVCu72NbmfMCjCZxY8V" alt="Delivery Location" fill className="object-cover" />
-                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                    <div className="w-16 h-16 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center animate-pulse">
-                                        <Icon icon="material-symbols:location-on-rounded" className="text-primary text-5xl drop-shadow-lg" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <p className="text-center text-xs font-bold text-slate-400 mt-6 bg-slate-100 py-3 px-6 rounded-full inline-flex self-center gap-2 items-center">
                         <Icon icon="material-symbols:info-outline-rounded" className="w-4 h-4" />
-                        Kuryerimiz buyurtmani tayyorlagach siz bilan bog'lanadi.
+                        {t("info")}
                     </p>
                 </div>
             </main>
 
             <footer className="py-6 sm:py-8 text-center text-slate-400 font-bold text-[11px] uppercase tracking-widest">
-                © 2024 Gulso 1.0. Barcha huquqlar himoyalangan.
+                {tFooter("rights", { year: new Date().getFullYear() })}
             </footer>
         </div>
     );
