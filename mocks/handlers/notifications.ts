@@ -5,7 +5,8 @@ import { notificationBus } from "../notificationBus";
 
 // ── WebSocket handler ─────────────────────────────────────────────────────────
 // MSW intercepts any WS connection whose URL matches this pattern.
-const notificationSocket = ws.link("ws://*/api/v1/ws/notifications");
+// Covers both ws:// (local http) and wss:// (deployed https).
+const notificationSocket = ws.link(/^wss?:\/\/[^/]+\/api\/v1\/ws\/notifications$/);
 
 export const notificationWsHandlers = [
   notificationSocket.addEventListener("connection", ({ client }) => {

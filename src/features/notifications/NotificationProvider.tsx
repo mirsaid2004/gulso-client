@@ -5,9 +5,10 @@ import { useNotifications } from "./api/get-notifications";
 import { useNotificationStore } from "./useNotificationStore";
 import { NotificationResponse } from "@/types";
 
+// Match the page protocol: browsers refuse ws:// from an https:// page.
 const WS_URL =
   typeof window !== "undefined"
-    ? `ws://${window.location.host}/api/v1/ws/notifications`
+    ? `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/v1/ws/notifications`
     : "";
 
 export function NotificationProvider() {
@@ -32,7 +33,14 @@ export function NotificationProvider() {
   useEffect(() => {
     if (!WS_URL) return;
 
-    const socket = new WebSocket(WS_URL);
+    // The constructor throws synchronously (e.g. SecurityError); live
+    // notifications are optional, so never let that take down the app.
+    let socket: WebSocket;
+    try {
+      socket = new WebSocket(WS_URL);
+    } catch {
+      return;
+    }
 
     socket.onmessage = (event) => {
       try {
