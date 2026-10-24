@@ -2,9 +2,10 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import { api } from "@/lib/api-client";
+import { CONFIG } from "@/config";
 import { ApiResponse, AuthResponse } from "@/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://gulso.com";
+const API_BASE_URL = CONFIG.API_BASE_URL;
 
 async function refreshAccessToken(token: JWT): Promise<JWT> {
   try {

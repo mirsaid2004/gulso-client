@@ -1,0 +1,3 @@
+[build.environment]
+  # No real backend yet: serve the API from MSW static mocks (see .env.template)
+  NEXT_PUBLIC_API_MOCKING = "enabled"
